@@ -1,23 +1,17 @@
 import type { Metadata } from "next";
-import { Archivo, Cabin, Raleway } from "next/font/google";
+import { Poppins, Raleway } from "next/font/google";
 import "./globals.css";
 
-
-const archivo = Archivo({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-archivo",
-});
-
-const cabin = Cabin({
-  subsets: ["latin"],
-  variable: "--font-cabin",
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 const raleway = Raleway({
   subsets: ["latin"],
   variable: "--font-raleway",
 });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,9 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${cabin.variable} ${archivo.variable} ${raleway.variable}`}
-      >
+      <body className={`${poppins.variable}  ${raleway.variable}`}>
         {children}
       </body>
     </html>
