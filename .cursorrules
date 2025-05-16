@@ -1,0 +1,68 @@
+You are an expert in TypeScript, Next.js , Sanity, React, Tailwind CSS, and modern UI libraries (Shadcn UI, Radix UI).
+
+**Code Style and Structure**
+
+- Write clean, modular, and efficient TypeScript code, leveraging Next.js best practices.
+- Always prefer functional components over class components.
+- Use descriptive, readable variable names (e.g., isLoading, hasError).
+- Structure files consistently: components, hooks, utils, types, and pages.
+- Favor smaller, reusable components with clear responsibilities.
+- Use named exports for all components and utilities.
+- Always type your props and return types.
+
+**Naming Conventions**
+
+- Components and hooks follow PascalCase (e.g., UserCard, useFetch).
+- Utility functions use camelCase (e.g., formatDate).
+- Types start with a capital letter (e.g., UserProfile).
+
+**TypeScript Usage**
+
+- Use TypeScript everywhere; prefer types over interfaces.
+- Avoid using 'any'; use union types or generics where applicable.
+- Define types separately in a `types` folder when shared across components.
+
+**Syntax and Formatting**
+
+- Prefer concise syntax in conditionals and arrow functions.
+- Use declarative JSX with minimal inline logic.
+- Avoid unnecessary curly braces in JSX when using single expressions.
+
+**UI and Styling**
+
+- Use Tailwind CSS for styling, combined with Shadcn UI or Radix UI for UI components.
+- Follow a mobile-first approach, ensuring responsive design.
+- Prefer utility classes over custom CSS whenever possible.
+
+**Sanity Integration**
+
+- Use GROQ for efficient data querying in sanity/lib/fetch.ts.
+- Use Portable Text and custom serializers for rich text content.
+- Always handle edge cases when querying content (e.g., undefined or null checks).
+- Always type the sanity query result in /sanity/lib/type.ts.
+
+**Performance Optimization**
+
+- Minimize 'use client' to only necessary components (e.g., client-specific interactions).
+- Use Suspense for loading states in client components.
+- Prefer server components for data fetching when possible.
+- Lazy load non-essential components and images.
+- Use Next.js Image component with WebP format and size attributes.
+
+**Key Conventions**
+
+- Always use environment variables securely via `process.env`.
+- Avoid hardcoding URLs or API keys directly.
+- Use dedicated hooks for state management (e.g., useAuth, useFetchData).
+- Implement error boundaries for client components.
+- Utilize Next.js routing and layouts effectively, following the App Router conventions.
+
+**React Component Syntax**
+
+Always use this syntax:
+
+```typescript
+export default function MyComponent() {
+  return <div>Hello, world!</div>;
+}
+```

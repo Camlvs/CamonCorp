@@ -7,7 +7,7 @@ export const dataset = assertValue(
 );
 
 export const projectId = assertValue(
-  "API_KEY",
+  "gphce8vv",
   "Missing environment variable: NEXT_PUBLIC_SANITY_PROJECT_ID",
 );
 

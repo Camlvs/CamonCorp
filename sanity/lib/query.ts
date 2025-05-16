@@ -1,146 +1,124 @@
 import { groq } from "next-sanity";
 
 // Query schema datasets
-export const firstQuery = groq`*[_type == "home"][0] {
-	blockHtml,
-	ctaAllPagesButton,
-  navigation {
-    "logo": logo.asset->url,
+export const headerQuery = groq`*[_type == "header"][0] {
+  bandeau,
+  title[]{
+    ...,
+    children[]{
+      ...
+    }
+  },
+  subTitle[]{
+    ...,
+    children[]{
+      ...
+    }
+  },
+  button,
+  subButton[]
+}`;
+
+export const missionQuery = groq`*[_type == "mission"][0] {
+  title,
+  subtitle,
+  description,
+  buttonText,
+  socialLinks,
+  image
+}`;
+
+export const youtubersQuery = groq`*[_type == "youtubers"][0] {
+  title,
+  subTitle,
+  youtubersList[] {
     name,
-    menuItems[] {
-      label,
-    },
-    ctaButton {
-      text,
-    }
-  },
-  heroSection {
-    topButton,
-    titlePart1,
-    titlePart2,
-    titlePart3,
-    video{
-    asset->{_id, url}
-  	},
-    description,
-    description2,
-    ctaButton,
-    statsText,
-    "statsImage": statsImage.asset->url
-  },
-  brands[] {
-  	"image": image.asset->url
-	},
-  presentationSection {
-    topButton,
-    name1,
-    name2,
-    description,
-    ctaButton,
     "image": image.asset->url,
-    nbOfPeople[] {
-			title,
-			number,
-			description
-		}
+    videoTitle,
+    videoUrl
+  }
+}`;
+
+export const chiffresQuery = groq`*[_type == "chiffres"][0] {
+  title,
+  subtitle,
+  statistics[] {
+    title,
+    number
+  }
+}`;
+
+export const yourProjectsQuery = groq`*[_type == "yourProjects"][0] {
+  title,
+  richText,
+  buttonText,
+  socialLinks,
+  "image": image.asset->url,
+  projects[] {
+    "image": image.asset->url,
+    title,
+    description
   },
-  forWhoSection {
-    topButton,
-    title1,
-    title2,
-    description,
-    cards[] {
-      title,
-      description
-    },
-		ctaButton,
-	 	"image": image.asset->url
-  },
-  resultsSection {
-    topButton,
+  statistics[] {
+    title,
+    number1,
+    number2
+  }
+}`;
+
+export const valeursQuery = groq`*[_type == "valeurs"][0] {
+  title,
+  subtitle,
+  description,
+  buttonText,
+  values[] {
+    "image": image.asset->url,
+    title,
+    description
+  }
+}`;
+
+export const yourVideoQuery = groq`*[_type == "yourVideo"][0] {
+  title,
+  subtitle,
+  description,
+  videos[] {
     title,
     description,
-    cards[] {
-      "icon": icon.asset->url,
-      title,
-      description
-    },
-    ctaButton
-  },
-  resultsSection2 {
-    topButton,
+    "image": image.asset->url
+  }
+}`;
+
+export const avisQuery = groq`*[_type == "avis"][0] {
+  "image": image.asset->url,
+  title,
+  subtitle,
+  description,
+  testimonials[] {
+    "image": image.asset->url,
     title,
-    description,
-    cards[] {
-      "icon": icon.asset->url,
-      title,
-      description
-    },
-    ctaButton
-  },
-  priceSection {
-    topButton,
-    title1,
-    title2,
+    description
+  }
+}`;
+
+export const offreQuery = groq`*[_type == "offre"][0] {
+  title,
+  subtitle,
+  description,
+  offers[] {
+    title,
     subtitle,
-    hero[] {
-      "image": image.asset->url,
-    	name,
-    },
-    card {
-      "image": image.asset->url,
-      title,
-      price,
-      advantagesTitle,
-      advantages,
-      ctaButton
-    }
-  },
-  faqSection {
-    title1,
-    title2,
-    questions[] {
-      question,
-      answer
-    }
-  },
-  ctaFooter {
-    topButton,
-    title,
-    description,
-    ctaButton,
-    footer {
-      "profileImage": profileImage.asset->url,
-      name,
-      linkedinUrl,
-      credits,
-      creditsUrl
-    }
-  },
-  actionPlanSection {
-    topButton,
-    title1,
-    title2,
-    description,
-    steps[] {
-      "image": image.asset->url,
-      number,
-      title,
-      bulletPoints
-    },
-    ctaButton
-  },
-  testimonialsSection {
-    topButton,
-    title1,
-    title2,
-    videos[] {
-      video{
-        asset->{_id, url}
-      },
-      name,
-      job
-    },
-    ctaButton
+    pricing,
+    buttonText,
+    titleOffre,
+    features
+  }
+}`;
+
+export const faqQuery = groq`*[_type == "faq"][0] {
+  title,
+  questions[] {
+    question,
+    reponse
   }
 }`;

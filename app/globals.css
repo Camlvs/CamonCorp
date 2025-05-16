@@ -12,6 +12,18 @@ p {
   font-family: var(--font-poppins);
 }
 
+.ralewayOver p {
+  font-family: var(--font-raleway);
+}
+
+.ralewayOver span {
+  font-family: var(--font-raleway);
+}
+
+span {
+  font-family: var(--font-poppins);
+}
+
 .main-video {
   background-image: url(/bg.png);
   background-repeat: no-repeat;
@@ -24,5 +36,16 @@ p {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  .theme {
+    --animate-gradient: gradient 8s linear infinite;
+  }
+}
+
+@theme inline {
+  @keyframes gradient {
+    to {
+      background-position: var(--bg-size, 300%) 0;
+    }
   }
 }
