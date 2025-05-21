@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
 import { Marquee } from "@/components/magicui/marquee";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
 const reviews = [
@@ -33,7 +33,7 @@ const ReviewCard = ({ img, username }: { img: string; username: string }) => {
   return (
     <figure
       className={cn(
-        "relative h-full w-64 py-3 cursor-pointer overflow-hidden rounded-xl",
+        "relative h-full w-64 lg:py-3 cursor-pointer overflow-hidden rounded-xl"
       )}
     >
       <div className="flex flex-row items-center gap-2">

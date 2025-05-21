@@ -46,13 +46,16 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                 </div>
               </div>
 
-              <div className="px-4 flex lg:items-center lg:justify-center lg:hidden gap-4">
-                <span className="flex items-center justify-center z-10 rounded-full bg-[#6B8DFF] h-[30px] w-[30px] text-sm">
-                  {index + 1}
-                </span>
-                <div className="flex flex-col max-w-[300px] lg:max-w-full">
-                  <h3 className="h5">{item.title}</h3>
-                  <p className="mt-2 text-[#FFFFFFCC] text-sm">
+              <div className="pr-4 flex lg:items-center lg:justify-center lg:hidden gap-4">
+                <div className="z-20 h-10 w-10 shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[0_0_10px_rgba(255,255,255,0.2)] flex items-center justify-center text-white font-medium text-sm">
+                  <span>{index + 1}</span>
+                </div>
+
+                <div className="flex flex-col max-w-[300px]">
+                  <h3 className="text-base font-semibold text-[#FFAC32]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-1 text-[#FFFFFFCC] text-sm">
                     {item.description}
                   </p>
                 </div>

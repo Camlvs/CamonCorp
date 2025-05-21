@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 
 // Query schema datasets
 export const headerQuery = groq`*[_type == "header"][0] {
+  cta,
   bandeau,
   title[]{
     ...,
@@ -121,4 +122,12 @@ export const faqQuery = groq`*[_type == "faq"][0] {
     question,
     reponse
   }
+}`;
+
+export const footerQuery = groq`*[_type == "footer"][0] {
+  "video": video.asset->url,
+  "logo1": logo1.asset->url,
+  "logo2": logo2.asset->url,
+  contactText,
+  email
 }`;

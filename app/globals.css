@@ -49,3 +49,35 @@ span {
     }
   }
 }
+
+@keyframes scroll-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes scroll-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.scroll-strip {
+  display: flex;
+  flex-wrap: nowrap;
+  min-width: fit-content;
+}
+
+.scrolling-top {
+  animation: scroll-right 40s linear infinite;
+}
+
+.scrolling-bottom {
+  animation: scroll-left 40s linear infinite;
+}

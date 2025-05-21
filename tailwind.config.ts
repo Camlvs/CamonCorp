@@ -14,6 +14,9 @@ export default {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
+        beige: "#ECD6B1",
+        peach: "#F2766C",
+        red: "#E73022",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         mainRed: "#E50C00",
@@ -86,11 +89,16 @@ export default {
             transform: "translateY(calc(-100% - var(--gap)))",
           },
         },
+        scroll: {
+          "0%": { transform: "translateY(0)" },
+          "100%": { transform: "translateY(-50%)" },
+        },
       },
       animation: {
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         gradient: "gradient 8s linear infinite",
+        scroll: "scroll 20s linear infinite",
       },
     },
   },

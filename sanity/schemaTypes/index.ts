@@ -2,6 +2,7 @@ import { type SchemaTypeDefinition } from "sanity";
 import avis from "./avis";
 import { chiffres } from "./chiffres";
 import faq from "./faq";
+import footer from "./footer";
 import { header } from "./header";
 import { mission } from "./mission";
 import offre from "./offre";
@@ -22,5 +23,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     avis,
     offre,
     faq,
+    footer,
   ],
 };

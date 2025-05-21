@@ -15,6 +15,7 @@ import {
   avisQuery,
   chiffresQuery,
   faqQuery,
+  footerQuery,
   headerQuery,
   missionQuery,
   offreQuery,
@@ -27,6 +28,7 @@ import {
   Avis,
   Chiffres,
   FAQ,
+  Footer,
   Header,
   Mission,
   Offre,
@@ -93,26 +95,33 @@ export default async function Home() {
     tags: ["faq"],
   });
 
+  const footer = await sanityFetch<Footer>({
+    query: footerQuery,
+    tags: ["footer"],
+  });
+
   return (
     <>
       <div className="bg-black">
         {header.bandeau && <TopBar text={header.bandeau} />}
-        <Navbar />
+        <Navbar cta={header.cta} />
 
         <div className="pb-[230px] text-center main-video flex flex-col justify-center items-center mt-[100px]">
-          <div className="text-7xl font-poppins font-semibold">
+          <div className="text-[32px] lg:text-7xl font-poppins font-semibold">
             <PortableText value={header.title} />
           </div>
-          <div className="text-[#A9A9A9] text-2xl mt-7">
+          <div className="text-[#A9A9A9] text-[18px] lg:text-2xl px-[32px] lg:px-0 mt-7">
             <PortableText value={header.subTitle} />
           </div>
-          <button className="flex gap-2.5 items-center mt-[50px] bg-mainRed text-white font-poppins font-semibold px-10 py-3 rounded-2xl">
-            {header.button}
-            <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
-          </button>
+          <a href={header.cta} target="_blank" rel="noopener noreferrer">
+            <button className="text-sm lg:text-base flex gap-2.5 items-center mt-[50px] bg-mainRed text-white font-poppins lg:font-semibold px-2 lg:px-10 py-3 rounded-2xl">
+              {header.button}
+              <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
+            </button>
+          </a>
           <div className="mt-[33px] flex gap-6">
             {header.subButton.map((item, index) => (
-              <div key={index} className="flex gap-2">
+              <div key={index} className="flex gap-2 text-xs lg:text-base">
                 <Image
                   src="/checkIcon.svg"
                   width={16}
@@ -126,34 +135,44 @@ export default async function Home() {
         </div>
         <Youtubers />
       </div>
-      <div className="mt-[70px] px-[50px]">
-        <div className="bg-[#303030] rounded-2xl flex gap-[40px] p-[50px]">
-          <div className="flex flex-col">
-            <Tooltip text={mission.title} />
-            <h1 className="text-5xl font-poppins font-semibold mt-2">
+      <div className="mt-[70px] lg:px-[50px]" id="missions">
+        <div className="bg-[#303030] rounded-2xl flex items-center lg:items-start gap-[40px] p-3 lg:p-[50px] flex-col lg:flex-row">
+          <div className="flex flex-col  pt-6 lg:pt-0">
+            <div className="mx-auto lg:mx-0">
+              <Tooltip text={mission.title} />
+            </div>
+            <h1 className="text-5xl font-poppins font-semibold mt-4 lg:mt-2">
               {(() => {
                 const words = mission.subtitle.trim().split(" ");
                 const lastTwo = words.slice(-2).join(" ");
                 const before = words.slice(0, -2).join(" ");
                 return (
-                  <>
+                  <div className="text-center lg:text-left text-[28px] lg:text-[48px]">
                     {before && <span>{before} </span>}
                     <AnimatedGradientText>{lastTwo}</AnimatedGradientText>
-                  </>
+                  </div>
                 );
               })()}
             </h1>
-
-            <div className="mt-10">
+            <Image
+              width={365}
+              height={380}
+              src={urlFor(mission.image).url()}
+              alt="mission"
+              className="rounded-2xl mt-6 lg:hidden"
+            />
+            <div className="mt-10 text-sm lg:text-base">
               <PortableText value={mission.description} />
             </div>
-            <button className="flex w-fit gap-2.5 items-center mt-[40px] bg-mainRed text-white font-poppins font-semibold px-10 py-3 rounded-2xl">
-              {mission.buttonText}
-              <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
-            </button>
-            <div className="flex gap-5 mt-[45px]">
+            <a href={header.cta} target="_blank" rel="noopener noreferrer">
+              <button className="flex w-fit gap-2.5 items-center mt-[40px] bg-mainRed text-white font-poppins font-semibold px-10 py-3 rounded-2xl">
+                {mission.buttonText}
+                <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
+              </button>
+            </a>
+            <div className="lg:flex gap-5 mt-[45px] pb-6 lg:pb-0 hidden">
               {mission.socialLinks.map((item, index) => (
-                <div key={index} className="flex gap-1">
+                <div key={index} className="flex gap-1 items-center">
                   <Link href={item.url}>
                     <Image
                       width={24}
@@ -162,7 +181,9 @@ export default async function Home() {
                       alt={item.platform}
                     />
                   </Link>
-                  <p className="font-light">{item.title}</p>
+                  <p className="font-light text-[13px] lg:text-base">
+                    {item.title}
+                  </p>
                 </div>
               ))}
             </div>
@@ -172,16 +193,16 @@ export default async function Home() {
             height={600}
             src={urlFor(mission.image).url()}
             alt="mission"
-            className="rounded-2xl"
+            className="rounded-2xl hidden lg:block"
           />
         </div>
       </div>
-      <div className="flex flex-col items-center mt-[100px]">
+      <div id="realisations" className="flex flex-col items-center mt-[100px]">
         <p className="text-2xl font-bold mb-6">
           <Tooltip text={youtubers.title} />
         </p>
 
-        <div className="text-5xl font-poppins font-semibold mt-2">
+        <div className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = youtubers.subTitle.trim().split(" ");
             const lastTwo = words.slice(-3).join(" ");
@@ -231,16 +252,18 @@ export default async function Home() {
             </div>
           ))}
         </div>
-        <div className="mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
-          Voir tous nos projets
-          <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
-        </div>
+        <a href={header.cta} target="_blank" rel="noopener noreferrer">
+          <div className="mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
+            Voir tous nos projets
+            <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
+          </div>
+        </a>
       </div>
-      <div className="py-24 px-14 bg-[#282828] mx-[50px] rounded-2xl mt-24 flex flex-col items-center justify-center">
+      <div className="py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24 flex flex-col items-center justify-center">
         <p className="text-2xl font-bold mb-6">
           <Tooltip text={chiffres.title} />
         </p>
-        <p className="text-5xl font-poppins font-semibold mt-2">
+        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = chiffres.subtitle.trim().split(" ");
             const lastTwo = words.slice(-3).join(" ");
@@ -253,11 +276,11 @@ export default async function Home() {
             );
           })()}
         </p>
-        <div className="mt-12 flex border border-[#FFFFFF59] rounded-2xl flex-wrap py-14">
+        <div className="mt-12 flex border border-[#FFFFFF59] rounded-2xl flex-col lg:flex-row flex-wrap py-14">
           {chiffres.statistics.map((stat, index) => (
             <div
               key={index}
-              className="flex flex-col justify-center items-center border-r border-[#FFFFFF59] px-14 last:border-r-0"
+              className="flex flex-col justify-center items-center lg:border-r border-[#FFFFFF59] px-14 last:border-r-0"
             >
               <p className="mb-8 text-2l text-[#FFFFFFB3]">{stat.title}</p>
               <div className="text-5xl font-bold">
@@ -267,24 +290,27 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="pb-[60px] mt-7 bg-white rounded-2xl mx-[50px]">
-        <p className="text-5xl pt-10 text-black font-semibold text-center">
+
+      <div className="pb-[60px] mt-7 bg-white rounded-2xl lg:mx-[50px]">
+        <p className="text-[28px] text-center lg:text-5xl pt-10 text-black font-semibold lg:pl-[50px]">
           {yourProjects.title}
         </p>
-        <div className="flex items-center gap-[100px] px-[50px] pt-[50px]">
+        <div className="flex items-center gap-[100px] px-4 lg:px-[50px] pt-[50px] flex-col-reverse lg:flex-row">
           <div className="flex flex-col">
             <div className="mt-4 text-black">
               <PortableText value={yourProjects.richText} />
             </div>
-            <div className="w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
-              {yourProjects.buttonText}
-              <Image
-                src={"rightArrow.svg"}
-                width={24}
-                height={24}
-                alt="arrow"
-              />
-            </div>
+            <a href={header.cta} target="_blank" rel="noopener noreferrer">
+              <div className="w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
+                {yourProjects.buttonText}
+                <Image
+                  src={"rightArrow.svg"}
+                  width={24}
+                  height={24}
+                  alt="arrow"
+                />
+              </div>
+            </a>
             <div className="flex gap-5 mt-[45px]">
               {yourProjects.socialLinks.map((item, index) => (
                 <div key={index} className="flex gap-1">
@@ -312,7 +338,7 @@ export default async function Home() {
               return (
                 <div
                   key={index}
-                  className={`absolute ${positions[index]} w-fit flex flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
+                  className={`absolute ${positions[index]} hidden lg:flex w-fitflex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
                 >
                   <div className="flex gap-2">
                     <Image
@@ -330,30 +356,36 @@ export default async function Home() {
                 </div>
               );
             })}
-            <div className="w-[530px]">
+            <div className="lg:w-[530px]">
               <Image
                 src={yourProjects.image}
                 alt="Projects"
                 width={530}
                 height={790}
-                className="rounded-2xl h-[790px] !w-[530px] object-cover"
+                className="rounded-2xl w-[340px] h-[520px] lg:h-[790px] lg:!w-[530px] object-cover"
               />
             </div>
-            <div className="absolute bottom-4 -left-6 rotate-12 flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] w-fit gap-5">
+            <div
+              className="absolute -bottom-10 left-1/2 -translate-x-1/2 
+                lg:bottom-4 lg:translate-x-0 lg:-left-6 lg:rotate-12 
+                flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] w-fit gap-5 w-3/4 justify-center"
+            >
               {yourProjects.statistics.map((stat, index) => (
                 <div
                   key={index}
                   className="flex flex-col gap-2 items-center justify-center"
                 >
-                  <p className="text-[#989898] text-xl">{stat.title}</p>
-                  <p className="text-3xl font-semibold text-white">
+                  <p className="text-[#989898] text-xs lg:text-xl">
+                    {stat.title}
+                  </p>
+                  <p className="text-sm lg:text-3xl font-semibold text-white">
                     <NumberTicker
                       value={parseFloat(stat.number1)}
                       className="text-white"
                     />
                     M
                   </p>
-                  <p className="text-sm text-[#17A34A] flex gap-1">
+                  <p className="text-[10px] lg:text-sm text-[#17A34A] flex gap-1">
                     <Image
                       src={"topArrow.svg"}
                       width={12}
@@ -368,12 +400,12 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <div className="gap-12 py-24 px-14 bg-[#282828] mx-[50px] rounded-2xl mt-24 flex justify-center">
-        <div className="flex flex-col">
+      <div className="gap-12 py-12 lg:py-24 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24 flex flex-col lg:flex-row  justify-center">
+        <div className="flex flex-col items-center lg:items-start px-[20px] lg:px-0">
           <p className="text-2xl font-bold mb-6">
             <Tooltip text={valeurs.title} />
           </p>
-          <p className="text-5xl font-poppins font-semibold mt-2">
+          <p className="text-[28px] text-center lg:text-start lg:text-5xl font-poppins font-semibold mt-2">
             {(() => {
               const words = valeurs.subtitle.trim().split(" ");
               const before = words.slice(0, 2).join(" "); // les deux premiers mots
@@ -386,10 +418,10 @@ export default async function Home() {
               );
             })()}
           </p>
-          <div className="mt-10 text-xl">
+          <div className="text-center lg:text-start mt-10 lg:text-xl">
             <PortableText value={valeurs.description} />
           </div>
-          <div className="w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
+          <div className="hidden w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl lg:flex items-center gap-2">
             {valeurs.buttonText}
             <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
           </div>
@@ -399,7 +431,7 @@ export default async function Home() {
             {valeurs.values.map((value, index) => (
               <div
                 key={index}
-                className="cursor-pointer group flex flex-col p-6 bg-white rounded-2xl w-[370px] transition duration-300 transform hover:-rotate-6 hover:bg-red-600"
+                className="cursor-pointer group flex flex-col p-6 bg-white rounded-2xl w-[370px] transition duration-300 transform hover:-rotate-6 hover:bg-[#E50C00]"
               >
                 <div className="flex gap-2 mb-2 items-center">
                   <Image
@@ -419,17 +451,26 @@ export default async function Home() {
             ))}
           </div>
         </div>
+        <a href={header.cta} target="_blank" rel="noopener noreferrer">
+          <div className="flex w-fit mt-3 bg-[#E50C00] text-white mx-auto px-7 py-2 rounded-xl lg:hidden items-center gap-2">
+            {valeurs.buttonText}
+            <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
+          </div>
+        </a>
       </div>
       <div>
         <TextReveal className="italic font-semibold">
           On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
         </TextReveal>
       </div>
-      <div className="py-24 px-14 bg-[#282828] mx-[50px] rounded-2xl mt-24">
-        <p className="text-2xl font-bold mb-6">
+      <div
+        id="process"
+        className="py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24"
+      >
+        <div className="flex lg:block justify-center text-2xl font-bold mb-6">
           <Tooltip text={yourVideo.title} />
-        </p>
-        <p className="text-5xl font-poppins font-semibold mt-2">
+        </div>
+        <p className="text-[28px] text-center lg:text-start lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = yourVideo.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -442,19 +483,30 @@ export default async function Home() {
             );
           })()}
         </p>
-        <p className="mt-6 text-xl text-[#A9A9A9]">{yourVideo.description}</p>
+        <p className="mt-6 text-center lg:text-start mb-6 lg:mb-0 lg:text-xl text-[#A9A9A9]">
+          {yourVideo.description}
+        </p>
         <div>
           <Roadmap data={yourVideo} />
         </div>
+        <a href={header.cta} target="_blank" rel="noopener noreferrer">
+          <div className="flex w-fit mt-3 bg-[#E50C00] text-white mx-auto px-7 py-2 rounded-xl lg:hidden items-center gap-2">
+            Je suis convaincu, on y va
+            <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
+          </div>
+        </a>
       </div>
 
       {/* AVIS */}
 
-      <div className="relative flex flex-col items-center mt-24 pb-[130px]">
+      <div
+        id="refs"
+        className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]"
+      >
         <p className="text-2xl font-bold mb-6">
           <Tooltip text={avis.title} />
         </p>
-        <p className="text-5xl font-poppins font-semibold mt-2">
+        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = avis.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -467,7 +519,7 @@ export default async function Home() {
             );
           })()}
         </p>
-        <div className="mt-6 text-[#F0F0F0] text-2xl text-center leading-[40px]">
+        <div className="mt-6 text-[#F0F0F0] text-base lg:text-2xl text-center lg:leading-[40px] px-6 lg:px-0">
           <PortableText value={avis.description} />
         </div>
         <Testimonials data={avis} />
@@ -476,9 +528,12 @@ export default async function Home() {
 
       {/* OFFRE */}
 
-      <div className="relative flex flex-col items-center mt-24 pb-[130px]">
+      <div
+        id="tarif"
+        className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]"
+      >
         <Tooltip text={offre.title} />
-        <p className="text-5xl font-poppins font-semibold mt-6">
+        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-6">
           {(() => {
             const words = offre.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -491,21 +546,21 @@ export default async function Home() {
             );
           })()}
         </p>
-        <div className="ralewayOver mt-6 text-[#F0F0F0] text-2xl text-center leading-[40px]">
+        <div className="ralewayOver mt-6 text-[#F0F0F0] lg:text-2xl text-center lg:leading-[40px]">
           <PortableText value={offre.description} />
         </div>
-        <div className="mt-12 flex gap-[50px] items-start">
+        <div className="mt-12 flex flex-col lg:flex-row gap-[50px] items-start">
           {offre.offers.map((offer, index) => (
             <div
               key={index}
               className={cn(
-                "w-[390px] flex flex-col items-start rounded-2xl py-10 px-6",
+                "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6",
                 index === 1 ? "bg-white" : "bg-[#282828]"
               )}
             >
               <p
                 className={cn(
-                  "text-2xl font-medium",
+                  "lg:text-2xl font-medium",
                   index === 1 ? "text-black" : "text-white"
                 )}
               >
@@ -520,29 +575,35 @@ export default async function Home() {
                 {offer.subtitle}
               </p>
               {index === 1 ? (
-                <p className="text-5xl font-medium mt-4 text-black">
+                <p className="text-2xl lg:text-5xl font-medium mt-4 text-black">
                   {offer.pricing}
                 </p>
               ) : (
-                <p className="text-5xl font-medium mt-4 ralewayOver">
+                <p className="text-2xl lg:text-5xl font-medium mt-4 ralewayOver">
                   <AnimatedGradientText>{offer.pricing}</AnimatedGradientText>
                 </p>
               )}
-
-              <button
-                className={cn(
-                  "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9",
-                  index !== 1 ? "bg-[#333]" : "bg-[#E50C00]"
-                )}
+              <a
+                href={header.cta}
+                target="_blank"
+                className="w-full"
+                rel="noopener noreferrer"
               >
-                <Image
-                  src={"whatApp.svg"}
-                  width={22}
-                  height={22}
-                  alt="whatsApp"
-                />
-                {offer.buttonText}
-              </button>
+                <button
+                  className={cn(
+                    "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9",
+                    index !== 1 ? "bg-[#333]" : "bg-[#E50C00]"
+                  )}
+                >
+                  <Image
+                    src={"whatApp.svg"}
+                    width={22}
+                    height={22}
+                    alt="whatsApp"
+                  />
+                  {offer.buttonText}
+                </button>
+              </a>
 
               <span
                 className={cn(
@@ -584,8 +645,8 @@ export default async function Home() {
           ))}
         </div>
       </div>
-      <div className="relative py-24 px-14 bg-[#282828] mx-[50px] rounded-2xl mt-24">
-        <p className="text-5xl font-poppins font-semibold mt-2">
+      <div className="relative py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24">
+        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = faq.title.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -600,6 +661,138 @@ export default async function Home() {
         </p>
         <div className="mt-12 w-full">
           <Faq questions={faq.questions} />
+        </div>
+      </div>
+
+      {/* FOOTER */}
+
+      <div className="relative mt-[150px] overflow-hidden">
+        <div className="absolute top-8 left-0 w-full h-[44px] overflow-hidden z-20">
+          <div className="scroll-strip scrolling-top">
+            {[...Array(2)].flatMap((_, loopIndex) =>
+              [...Array(15)].map((_, i) => (
+                <Image
+                  key={`top-${loopIndex}-${i}`}
+                  src={footer.logo1}
+                  alt="Logo"
+                  width={217}
+                  height={44}
+                  className="object-contain mr-4"
+                />
+              ))
+            )}
+          </div>
+        </div>
+
+        <div className="relative z-10 flex justify-center items-center h-[700px] lg:h-none">
+          {footer.video ? (
+            <video
+              src={footer.video}
+              className="w-full max-w-[800px] rounded-2xl"
+              controls
+            />
+          ) : (
+            <Image
+              src="/footer.png"
+              alt="Fallback"
+              height={730}
+              width={1920}
+              className="object-cover h-full"
+            />
+          )}
+        </div>
+
+        <div className="absolute bottom-8 left-0 w-full h-[44px] overflow-hidden z-10">
+          <div className="scroll-strip scrolling-bottom">
+            {[...Array(2)].flatMap((_, loopIndex) =>
+              [...Array(15)].map((_, i) => (
+                <Image
+                  key={`bottom-${loopIndex}-${i}`}
+                  src={footer.logo1}
+                  alt="Logo"
+                  width={217}
+                  height={44}
+                  className="object-contain mr-4"
+                />
+              ))
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="hidden lg:flex px-[40px] h-[220px] rounded-t-2xl mt-24 bg-gradient-to-r from-beige via-peach to-red items-center justify-between">
+        <div>
+          <Image
+            src={footer.logo2}
+            alt="Logo"
+            width={75}
+            height={50}
+            className="object-contain"
+          />
+
+          <p className="mt-4">
+            {footer.contactText} {footer.email}
+          </p>
+        </div>
+        <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
+          <Link href="#missions">Missions</Link>
+          <Link href="#realisations">Réalisations</Link>
+          <Link href="#process">Process</Link>
+          <Link href="#refs">Références</Link>
+          <Link href="#tarif">Tarif</Link>
+        </div>
+        <div className="flex flex-col gap-5 mt-[45px]">
+          {mission.socialLinks.map((item, index) => (
+            <div key={index}>
+              <Link href={item.url}>
+                <Image
+                  width={24}
+                  height={24}
+                  src={`/${item.platform.toLowerCase()}_white.svg`}
+                  alt={item.platform}
+                />
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="pt-8 px-3 flex flex-col lg:hidden rounded-t-2xl mt-12 bg-gradient-to-r from-beige via-peach to-red ">
+        <div>
+          <Image
+            src={footer.logo2}
+            alt="Logo"
+            width={75}
+            height={50}
+            className="object-contain"
+          />
+
+          <p className="mt-4">
+            {footer.contactText} {footer.email}
+          </p>
+        </div>
+        <div className="mt-6 flex justify-between items-center">
+          <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
+            <Link href="#missions">Missions</Link>
+            <Link href="#realisations">Réalisations</Link>
+            <Link href="#process">Process</Link>
+            <Link href="#refs">Références</Link>
+            <Link href="#tarif">Tarif</Link>
+          </div>
+          <div className="flex flex-col gap-5 ">
+            {mission.socialLinks.map((item, index) => (
+              <div key={index}>
+                <Link href={item.url}>
+                  <Image
+                    width={24}
+                    height={24}
+                    src={`/${item.platform.toLowerCase()}_white.svg`}
+                    alt={item.platform}
+                  />
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>

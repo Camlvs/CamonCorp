@@ -1,5 +1,6 @@
 export interface Header {
-  bandeau: string;
+  cta: string;
+  bandeau: PortableTextBlock[];
   title: PortableTextBlock[];
   subTitle: PortableTextBlock[];
   button: string;
@@ -148,4 +149,12 @@ export type FAQ = {
     question: string;
     reponse: PortableTextBlock[];
   }[];
+};
+
+export type Footer = {
+  video: string;
+  logo1: string;
+  logo2: string;
+  contactText: string;
+  email: string;
 };

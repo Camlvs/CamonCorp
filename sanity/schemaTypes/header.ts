@@ -6,9 +6,19 @@ export const header = defineType({
   type: "document",
   fields: [
     {
+      name: "cta",
+      title: "Lien du CTA",
+      type: "string",
+    },
+    {
       name: "bandeau",
       title: "Bandeau tout en haut",
-      type: "string",
+      type: "array",
+      of: [
+        {
+          type: "block",
+        },
+      ],
     },
     {
       name: "title",
