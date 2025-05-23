@@ -6,6 +6,11 @@ export const header = defineType({
   type: "document",
   fields: [
     {
+      name: "video",
+      title: "Vidéo d'intro",
+      type: "file",
+    },
+    {
       name: "cta",
       title: "Lien du CTA",
       type: "string",

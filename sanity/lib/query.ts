@@ -2,6 +2,7 @@ import { groq } from "next-sanity";
 
 // Query schema datasets
 export const headerQuery = groq`*[_type == "header"][0] {
+	"video": video.asset->url,
   cta,
   bandeau,
   title[]{

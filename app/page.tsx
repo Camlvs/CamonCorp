@@ -102,11 +102,27 @@ export default async function Home() {
 
   return (
     <>
-      <div className="bg-black">
+      <div className="relative bg-black overflow-hidden">
         {header.bandeau && <TopBar text={header.bandeau} />}
         <Navbar cta={header.cta} />
 
-        <div className="pb-[230px] text-center main-video flex flex-col justify-center items-center mt-[100px]">
+        {header.video && (
+          <video
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            src={header.video}
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
+        )}
+
+        <div
+          className={cn(
+            "pb-[230px] text-center flex flex-col justify-center items-center pt-[200px] relative z-10",
+            header.video ? "" : "main-video",
+          )}
+        >
           <div className="text-[32px] lg:text-7xl font-poppins font-semibold">
             <PortableText value={header.title} />
           </div>
@@ -133,6 +149,7 @@ export default async function Home() {
             ))}
           </div>
         </div>
+
         <Youtubers />
       </div>
       <div className="mt-[70px] lg:px-[50px]" id="missions">
@@ -165,7 +182,7 @@ export default async function Home() {
               <PortableText value={mission.description} />
             </div>
             <a href={header.cta} target="_blank" rel="noopener noreferrer">
-              <button className="flex w-fit gap-2.5 items-center mt-[40px] bg-mainRed text-white font-poppins font-semibold px-10 py-3 rounded-2xl">
+              <button className="flex w-fit gap-2.5 items-center bg-mainRed text-white font-poppins font-semibold px-10 py-3 rounded-2xl mx-auto lg:mx-0 mt-10 mb-8 lg:mb-0 lg:mt-[40px]">
                 {mission.buttonText}
                 <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
               </button>
@@ -198,9 +215,9 @@ export default async function Home() {
         </div>
       </div>
       <div id="realisations" className="flex flex-col items-center mt-[100px]">
-        <p className="text-2xl font-bold mb-6">
+        <div className="text-2xl font-bold mb-2 lg:mb-6">
           <Tooltip text={youtubers.title} />
-        </p>
+        </div>
 
         <div className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
@@ -215,7 +232,7 @@ export default async function Home() {
             );
           })()}
         </div>
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {youtubers.youtubersList.map((youtuber: Youtuber) => (
             <div
               key={youtuber.name}
@@ -236,7 +253,7 @@ export default async function Home() {
                   height={280}
                   className="rounded-2xl object-cover"
                 />
-                <div className="flex gap-2.5 mt-3">
+                <div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
                   <Image
                     src={"/flash.svg"}
                     width={28}
@@ -245,7 +262,7 @@ export default async function Home() {
                   />
                   <p className="text-2xl">{youtuber.name}</p>
                 </div>
-                <div className="mt-4 bg-white rounded-full text-[#E50C00] px-3 text-sm w-fit">
+                <div className="ml-2.5 lg:ml-0 mt-4 bg-white rounded-full text-[#E50C00] px-3 text-sm w-fit">
                   {youtuber.videoTitle}
                 </div>
               </Link>
@@ -253,16 +270,16 @@ export default async function Home() {
           ))}
         </div>
         <a href={header.cta} target="_blank" rel="noopener noreferrer">
-          <div className="mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
+          <div className="mt-12 bg-[#E50C00] text-white px-7 py-2.5 rounded-xl flex items-center gap-2">
             Voir tous nos projets
             <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
           </div>
         </a>
       </div>
       <div className="py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24 flex flex-col items-center justify-center">
-        <p className="text-2xl font-bold mb-6">
+        <div className="text-2xl font-bold mb-6">
           <Tooltip text={chiffres.title} />
-        </p>
+        </div>
         <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = chiffres.subtitle.trim().split(" ");
@@ -282,7 +299,9 @@ export default async function Home() {
               key={index}
               className="flex flex-col justify-center items-center lg:border-r border-[#FFFFFF59] px-14 last:border-r-0"
             >
-              <p className="mb-8 text-2l text-[#FFFFFFB3]">{stat.title}</p>
+              <p className="mb-2.5 lg:mb-8 text-2l text-[#FFFFFFB3]">
+                {stat.title}
+              </p>
               <div className="text-5xl font-bold">
                 {stat.textBefore && (
                   <AnimatedGradientText>{stat.textBefore}</AnimatedGradientText>
@@ -295,13 +314,14 @@ export default async function Home() {
                   <AnimatedGradientText>{stat.textAfter}</AnimatedGradientText>
                 )}
               </div>
+              <span className="mt-8 mb-8 w-3/4 mx-auto h-[1px] bg-[#FFFFFF59] lg:hidden"></span>
             </div>
           ))}
         </div>
       </div>
 
       <div className="pb-[60px] mt-7 bg-white rounded-2xl lg:mx-[50px]">
-        <div className="flex items-center gap-[100px] px-4 lg:px-[50px] pt-[50px] flex-col-reverse lg:flex-row">
+        <div className="flex items-center gap-[60px] lg:gap-[100px] px-4 lg:px-[50px] pt-[50px] flex-col-reverse lg:flex-row">
           <div className="flex flex-col">
             <p className="text-[28px] mb-6 lg:text-5xl pt-10 text-black font-semibold lg:leading-[50px]">
               {yourProjects.title}
@@ -377,7 +397,7 @@ export default async function Home() {
             <div
               className="absolute -bottom-10 left-1/2 -translate-x-1/2 
                 lg:bottom-4 lg:translate-x-0 lg:-left-6 lg:rotate-12 
-                flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] w-fit gap-5 w-3/4 justify-center"
+                flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] gap-5 w-3/4 justify-center"
             >
               {yourProjects.statistics.map((stat, index) => (
                 <div
@@ -411,9 +431,9 @@ export default async function Home() {
       </div>
       <div className="gap-12 py-12 lg:py-24 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24 flex flex-col lg:flex-row  justify-center">
         <div className="flex flex-col items-center lg:items-start px-[20px] lg:px-0">
-          <p className="text-2xl font-bold mb-6">
+          <div className="text-2xl font-bold mb-6">
             <Tooltip text={valeurs.title} />
-          </p>
+          </div>
           <p className="text-[28px] text-center lg:text-start lg:text-5xl font-poppins font-semibold mt-2">
             {(() => {
               const words = valeurs.subtitle.trim().split(" ");
@@ -430,7 +450,7 @@ export default async function Home() {
           <div className="text-center lg:text-start mt-10 lg:text-xl">
             <PortableText value={valeurs.description} />
           </div>
-          <div className="hidden w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl lg:flex items-center gap-2">
+          <div className="hidden w-fit mt-12 bg-[#E50C00] text-white px-7 py-3 rounded-xl lg:flex items-center gap-2">
             {valeurs.buttonText}
             <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
           </div>
@@ -461,7 +481,7 @@ export default async function Home() {
           </div>
         </div>
         <a href={header.cta} target="_blank" rel="noopener noreferrer">
-          <div className="flex w-fit mt-3 bg-[#E50C00] text-white mx-auto px-7 py-2 rounded-xl lg:hidden items-center gap-2">
+          <div className="mb-4 lg:mb-0 flex w-fit mt-3 bg-[#E50C00] text-white mx-auto px-7 py-3 rounded-xl lg:hidden items-center gap-2">
             {valeurs.buttonText}
             <Image src={"rightArrow.svg"} width={24} height={24} alt="arrow" />
           </div>
@@ -474,7 +494,7 @@ export default async function Home() {
       </div>
       <div
         id="process"
-        className="py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24"
+        className="py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl"
       >
         <div className="flex lg:block justify-center text-2xl font-bold mb-6">
           <Tooltip text={yourVideo.title} />
@@ -512,9 +532,9 @@ export default async function Home() {
         id="refs"
         className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]"
       >
-        <p className="text-2xl font-bold mb-6">
+        <div className="text-2xl font-bold mb-6">
           <Tooltip text={avis.title} />
-        </p>
+        </div>
         <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2">
           {(() => {
             const words = avis.subtitle.trim().split(" ");
@@ -558,7 +578,7 @@ export default async function Home() {
         <div className="ralewayOver mt-6 text-[#F0F0F0] lg:text-2xl text-center lg:leading-[40px]">
           <PortableText value={offre.description} />
         </div>
-        <div className="mt-12 flex flex-col lg:flex-row gap-[50px] items-start">
+        <div className="mt-12 flex flex-col lg:flex-row gap-[50px] items-start mx-[10px] lg:mx-0">
           {offre.offers.map((offer, index) => (
             <div
               key={index}
@@ -709,6 +729,17 @@ export default async function Home() {
               className="object-cover h-full"
             />
           )}
+          <a href={header.cta} target="_blank" rel="noopener noreferrer">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E50C00] text-white px-7 py-2 rounded-xl items-center gap-2 flex w-[270px] lg:  w-fit">
+              Donnez vie à votre projet
+              <Image
+                src={"rightArrow.svg"}
+                width={24}
+                height={24}
+                alt="arrow"
+              />
+            </div>
+          </a>
         </div>
 
         <div className="absolute bottom-8 left-0 w-full h-[44px] overflow-hidden z-10">

@@ -34,7 +34,7 @@ export default function Roadmap({ data }: { data: YourVideo }) {
               className="mb-[64px] lg-[mb-0] flex flex-col lg:flex-row justify-start lg:pt-[120px] md:gap-[120px]"
             >
               <div className="sticky hidden lg:flex flex-row z-40 items-start top-40 self-start w-full max-w-[500px] gap-6">
-                <div className="h-10 w-10 shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[0_0_10px_rgba(255,255,255,0.2)] flex items-center justify-center text-white font-medium">
+                <div className="h-12 w-12 text-xl shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[0_0_10px_rgba(255,255,255,0.2)] flex items-center justify-center text-white font-medium">
                   <span>{index + 1}</span>
                 </div>
 
@@ -75,7 +75,7 @@ export default function Roadmap({ data }: { data: YourVideo }) {
             style={{
               height: height + "px",
             }}
-            className="absolute left-[20px] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent via-neutral-200 dark:via-neutral-700 to-transparent from-[0%] to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
+            className="absolute left-[20px] lg:left-[23px] top-0 overflow-hidden w-[2px] bg-[linear-gradient(to_bottom,var(--tw-gradient-stops))] from-transparent via-neutral-200 dark:via-neutral-700 to-transparent from-[0%] to-[99%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
           >
             <motion.div
               style={{

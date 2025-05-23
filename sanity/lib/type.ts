@@ -1,4 +1,5 @@
 export interface Header {
+  video: string;
   cta: string;
   bandeau: PortableTextBlock[];
   title: PortableTextBlock[];

@@ -1,9 +1,12 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { Menu } from "lucide-react";
 
 export default function NavBar({ cta }: { cta: string }) {
   return (
-    <div className="flex justify-around items-center p-5">
+    <div className="flex justify-around items-center p-5 fixed w-full bg-[#141414] z-50 top-[40px]">
       <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
       <div className="flex gap-10 font-poppins font-semibold">
         <Link href="#missions">Missions</Link>
@@ -18,6 +21,7 @@ export default function NavBar({ cta }: { cta: string }) {
           Démarrer maintenant
         </div>
       </a>
+      <Menu />
     </div>
   );
 }
