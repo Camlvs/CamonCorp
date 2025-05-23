@@ -114,7 +114,7 @@ export default async function Home() {
             <PortableText value={header.subTitle} />
           </div>
           <a href={header.cta} target="_blank" rel="noopener noreferrer">
-            <button className="text-sm lg:text-base flex gap-2.5 items-center mt-[50px] bg-mainRed text-white font-poppins lg:font-semibold px-2 lg:px-10 py-3 rounded-2xl">
+            <button className="text-sm lg:text-base flex gap-2.5 items-center mt-[50px] bg-mainRed text-white font-poppins lg:font-semibold px-2 lg:px-10 py-3 rounded-xl">
               {header.button}
               <Image src="/nextIcon.svg" width={24} height={24} alt="arrow" />
             </button>
@@ -147,7 +147,7 @@ export default async function Home() {
                 const lastTwo = words.slice(-2).join(" ");
                 const before = words.slice(0, -2).join(" ");
                 return (
-                  <div className="text-center lg:text-left text-[28px] lg:text-[48px]">
+                  <div className="text-center lg:text-left text-[28px] lg:text-[48px] max-w-[604px] mt-4">
                     {before && <span>{before} </span>}
                     <AnimatedGradientText>{lastTwo}</AnimatedGradientText>
                   </div>
@@ -284,7 +284,16 @@ export default async function Home() {
             >
               <p className="mb-8 text-2l text-[#FFFFFFB3]">{stat.title}</p>
               <div className="text-5xl font-bold">
-                <AnimatedGradientText>{stat.number}</AnimatedGradientText>
+                {stat.textBefore && (
+                  <AnimatedGradientText>{stat.textBefore}</AnimatedGradientText>
+                )}
+                <NumberTicker
+                  value={parseFloat(stat.number)}
+                  className="font-poppins font-bold bg-gradient-to-r from-beige via-peach to-red bg-clip-text text-transparent"
+                />
+                {stat.textAfter && (
+                  <AnimatedGradientText>{stat.textAfter}</AnimatedGradientText>
+                )}
               </div>
             </div>
           ))}
@@ -292,16 +301,16 @@ export default async function Home() {
       </div>
 
       <div className="pb-[60px] mt-7 bg-white rounded-2xl lg:mx-[50px]">
-        <p className="text-[28px] text-center lg:text-5xl pt-10 text-black font-semibold lg:pl-[50px]">
-          {yourProjects.title}
-        </p>
         <div className="flex items-center gap-[100px] px-4 lg:px-[50px] pt-[50px] flex-col-reverse lg:flex-row">
           <div className="flex flex-col">
+            <p className="text-[28px] mb-6 lg:text-5xl pt-10 text-black font-semibold lg:leading-[50px]">
+              {yourProjects.title}
+            </p>
             <div className="mt-4 text-black">
               <PortableText value={yourProjects.richText} />
             </div>
             <a href={header.cta} target="_blank" rel="noopener noreferrer">
-              <div className="w-fit mt-12 bg-[#E50C00] text-white px-7 py-2 rounded-xl flex items-center gap-2">
+              <div className="w-fit mt-12 bg-[#E50C00] text-white px-7 py-3 rounded-xl flex items-center gap-2">
                 {yourProjects.buttonText}
                 <Image
                   src={"rightArrow.svg"}
@@ -338,7 +347,7 @@ export default async function Home() {
               return (
                 <div
                   key={index}
-                  className={`absolute ${positions[index]} hidden lg:flex w-fitflex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
+                  className={`absolute ${positions[index]} hidden lg:flex w-fit flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
                 >
                   <div className="flex gap-2">
                     <Image
@@ -431,7 +440,7 @@ export default async function Home() {
             {valeurs.values.map((value, index) => (
               <div
                 key={index}
-                className="cursor-pointer group flex flex-col p-6 bg-white rounded-2xl w-[370px] transition duration-300 transform hover:-rotate-6 hover:bg-[#E50C00]"
+                className="cursor-pointer group flex flex-col p-6 bg-white rounded-2xl w-[350px] transition duration-300 transform hover:-rotate-6 hover:bg-[#E50C00]"
               >
                 <div className="flex gap-2 mb-2 items-center">
                   <Image
@@ -555,13 +564,13 @@ export default async function Home() {
               key={index}
               className={cn(
                 "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6",
-                index === 1 ? "bg-white" : "bg-[#282828]"
+                index === 1 ? "bg-white" : "bg-[#282828]",
               )}
             >
               <p
                 className={cn(
                   "lg:text-2xl font-medium",
-                  index === 1 ? "text-black" : "text-white"
+                  index === 1 ? "text-black" : "text-white",
                 )}
               >
                 {offer.title}
@@ -569,7 +578,7 @@ export default async function Home() {
               <p
                 className={cn(
                   "text-[#FFFFFFCC] mt-2 font-raleway font-medium",
-                  index !== 1 ? "text-[#ffffffCC]" : "text-[#000000CC]"
+                  index !== 1 ? "text-[#ffffffCC]" : "text-[#000000CC]",
                 )}
               >
                 {offer.subtitle}
@@ -592,7 +601,7 @@ export default async function Home() {
                 <button
                   className={cn(
                     "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9",
-                    index !== 1 ? "bg-[#333]" : "bg-[#E50C00]"
+                    index !== 1 ? "bg-[#333]" : "bg-[#E50C00]",
                   )}
                 >
                   <Image
@@ -610,14 +619,14 @@ export default async function Home() {
                   "w-full h-[1px] mt-11 mb-10",
                   index === 1
                     ? "bg-[#00000040]"
-                    : "bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]"
+                    : "bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]",
                 )}
               ></span>
 
               <h4
                 className={cn(
                   "mt-6 font-medium text-[18px]",
-                  index !== 1 ? "text-white" : "text-black"
+                  index !== 1 ? "text-white" : "text-black",
                 )}
               >
                 {offer.titleOffre}
@@ -628,7 +637,7 @@ export default async function Home() {
                     key={featureIndex}
                     className={cn(
                       "flex items-center gap-2",
-                      index !== 1 ? "text-white" : "text-black/80"
+                      index !== 1 ? "text-white" : "text-black/80",
                     )}
                   >
                     <Image
@@ -679,7 +688,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              ))
+              )),
             )}
           </div>
         </div>
@@ -714,7 +723,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              ))
+              )),
             )}
           </div>
         </div>

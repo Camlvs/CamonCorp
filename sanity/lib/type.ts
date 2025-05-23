@@ -57,7 +57,9 @@ export interface Youtubers {
 
 export interface Statistic {
   title: string;
+  textBefore: string;
   number: string;
+  textAfter: string;
 }
 
 export interface Chiffres {

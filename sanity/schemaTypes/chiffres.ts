@@ -30,8 +30,18 @@ export const chiffres = defineType({
               type: "string",
             },
             {
+              name: "textBefore",
+              title: "Text avant",
+              type: "string",
+            },
+            {
               name: "number",
               title: "Number",
+              type: "string",
+            },
+            {
+              name: "textAfter",
+              title: "Text après",
               type: "string",
             },
           ],

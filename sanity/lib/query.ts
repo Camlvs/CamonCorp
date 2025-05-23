@@ -45,7 +45,9 @@ export const chiffresQuery = groq`*[_type == "chiffres"][0] {
   subtitle,
   statistics[] {
     title,
-    number
+    textBefore,
+    number,
+    textAfter
   }
 }`;
 
