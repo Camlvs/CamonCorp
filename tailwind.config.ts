@@ -68,6 +68,16 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
+        orbit: {
+          "0%": {
+            transform:
+              "rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg))",
+          },
+          "100%": {
+            transform:
+              "rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg))",
+          },
+        },
         gradient: {
           to: {
             backgroundPosition: "var(--bg-size) 0",
@@ -95,6 +105,7 @@ export default {
         },
       },
       animation: {
+        orbit: "orbit calc(var(--duration)*1s) linear infinite",
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         gradient: "gradient 8s linear infinite",

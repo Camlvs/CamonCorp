@@ -86,6 +86,17 @@ export const yourVideoQuery = groq`*[_type == "yourVideo"][0] {
   title,
   subtitle,
   description,
+  title1,
+  etape1[] {
+		title,
+		textColor,
+		backgroundColor
+	},
+	etape2[] {
+		title,
+		textColor,
+		backgroundColor
+	},
   videos[] {
     title,
     description,

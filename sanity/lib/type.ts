@@ -109,10 +109,27 @@ export interface Valeurs {
   values: Value[];
 }
 
+export type Etape1 = {
+  title: string;
+  textColor: string;
+  backgroundColor: string;
+};
+
 export type YourVideo = {
   title: string;
   subtitle: string;
   description: string;
+  title1: string;
+  etape1: {
+    title: string;
+    textColor: string;
+    backgroundColor: string;
+  }[];
+  etape2: {
+    title: string;
+    textColor: string;
+    backgroundColor: string;
+  }[];
   videos: {
     title: string;
     description: string;

@@ -2,7 +2,9 @@
 import { YourVideo } from "@/sanity/lib/type";
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { cn } from "@/lib/utils";
 
 export default function Roadmap({ data }: { data: YourVideo }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -61,14 +63,38 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                 </div>
               </div>
 
-              <div className="relative pl-14 mt-[40px] lg:mt-0 pr-4 md:pl-4 w-full">
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  width={560}
-                  height={500}
-                />
-              </div>
+              {index === 0 ? (
+                <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
+                  <OrbitingCircles title1={data.title1} data={data.etape1} />
+                </div>
+              ) : index === 1 ? (
+                <div className="flex flex-col gap-4 w-full pl-[50px] pt-4 lg:p-0 justify-center">
+                  {data.etape2.map((etape2, index) => (
+                    <p
+                      key={index}
+                      className={cn(
+                        "px-[18px] py-[4px] text-sm rounded-full w-full",
+                        index % 2 === 0 ? "lg:w-full" : "lg:w-1/2",
+                      )}
+                      style={{
+                        color: etape2.textColor,
+                        backgroundColor: etape2.backgroundColor,
+                      }}
+                    >
+                      {etape2.title}
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <div className="relative pl-14 mt-[40px] lg:mt-0 pr-4 md:pl-4 w-full">
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    width={560}
+                    height={500}
+                  />
+                </div>
+              )}
             </div>
           ))}
           <div
