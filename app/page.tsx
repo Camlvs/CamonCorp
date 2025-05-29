@@ -108,7 +108,7 @@ export default async function Home() {
 
         {header.video && (
           <video
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            className="absolute top-0 left-0 w-full h-full object-cover z-0 bg-black opacity-50"
             src={header.video}
             autoPlay
             muted
@@ -119,8 +119,8 @@ export default async function Home() {
 
         <div
           className={cn(
-            "pb-[230px] text-center flex flex-col justify-center items-center pt-[200px] relative z-10",
-            header.video ? "" : "main-video",
+            "pb-[230px] text-center flex flex-col justify-center items-center pt-[300px] relative z-10 h-[90vh]",
+            header.video ? "" : "main-video"
           )}
         >
           <div className="text-[32px] lg:text-7xl font-poppins font-semibold">
@@ -584,13 +584,13 @@ export default async function Home() {
               key={index}
               className={cn(
                 "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6",
-                index === 1 ? "bg-white" : "bg-[#282828]",
+                index === 1 ? "bg-white" : "bg-[#282828]"
               )}
             >
               <p
                 className={cn(
                   "lg:text-2xl font-medium",
-                  index === 1 ? "text-black" : "text-white",
+                  index === 1 ? "text-black" : "text-white"
                 )}
               >
                 {offer.title}
@@ -598,7 +598,7 @@ export default async function Home() {
               <p
                 className={cn(
                   "text-[#FFFFFFCC] mt-2 font-raleway font-medium",
-                  index !== 1 ? "text-[#ffffffCC]" : "text-[#000000CC]",
+                  index !== 1 ? "text-[#ffffffCC]" : "text-[#000000CC]"
                 )}
               >
                 {offer.subtitle}
@@ -621,7 +621,7 @@ export default async function Home() {
                 <button
                   className={cn(
                     "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9",
-                    index !== 1 ? "bg-[#333]" : "bg-[#E50C00]",
+                    index !== 1 ? "bg-[#333]" : "bg-[#E50C00]"
                   )}
                 >
                   <Image
@@ -639,14 +639,14 @@ export default async function Home() {
                   "w-full h-[1px] mt-11 mb-10",
                   index === 1
                     ? "bg-[#00000040]"
-                    : "bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]",
+                    : "bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]"
                 )}
               ></span>
 
               <h4
                 className={cn(
                   "mt-6 font-medium text-[18px]",
-                  index !== 1 ? "text-white" : "text-black",
+                  index !== 1 ? "text-white" : "text-black"
                 )}
               >
                 {offer.titleOffre}
@@ -657,7 +657,7 @@ export default async function Home() {
                     key={featureIndex}
                     className={cn(
                       "flex items-center gap-2",
-                      index !== 1 ? "text-white" : "text-black/80",
+                      index !== 1 ? "text-white" : "text-black/80"
                     )}
                   >
                     <Image
@@ -708,7 +708,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>
@@ -754,7 +754,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>
