@@ -1,9 +1,9 @@
 "use client";
 
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 export default function NavBar({ cta }: { cta: string }) {
@@ -12,7 +12,7 @@ export default function NavBar({ cta }: { cta: string }) {
   return (
     <>
       {/* Desktop nav */}
-      <div className="hidden lg:flex justify-around items-center p-5 fixed w-full bg-[#141414] z-50 top-[40px]">
+      <div className="hidden lg:flex justify-around items-center p-5 fixed w-full bg-transparent z-50 top-[40px]">
         <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
         <div className="flex gap-10 font-poppins font-semibold text-white">
           <Link href="#missions">Missions</Link>
