@@ -4,15 +4,33 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NavBar({ cta }: { cta: string }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Background devient noir après 1000px de scroll
+  const isScrolled = scrollY > 750;
 
   return (
     <>
       {/* Desktop nav */}
-      <div className="hidden lg:flex justify-around items-center p-5 fixed w-full bg-transparent z-50 top-[40px]">
+      <div
+        className="hidden lg:flex justify-around items-center p-5 fixed w-full z-50 top-[40px] transition-all duration-300 ease-in-out"
+        style={{
+          backgroundColor: isScrolled ? "rgba(0, 0, 0, 1)" : "transparent",
+        }}
+      >
         <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
         <div className="flex gap-10 font-poppins font-semibold text-white">
           <Link href="#missions">Missions</Link>
@@ -23,14 +41,19 @@ export default function NavBar({ cta }: { cta: string }) {
         </div>
         <a href={cta} target="_blank" rel="noopener noreferrer">
           <div className="flex gap-1 items-center text-mainRed font-poppins bg-white rounded-xl px-6 py-2.5">
-            <Image src="/wa.svg" width={22} height={22} alt="whatsapp" />
+            <Image src="/WA.svg" width={22} height={22} alt="whatsapp" />
             Démarrer maintenant
           </div>
         </a>
       </div>
 
       {/* Mobile nav */}
-      <div className="z-50 fixed w-full flex lg:hidden justify-between items-center px-5 top-[50px]">
+      <div
+        className="z-50 fixed w-full flex lg:hidden justify-between items-center px-5 top-[50px] transition-all duration-300 ease-in-out"
+        style={{
+          backgroundColor: isScrolled ? "rgba(0, 0, 0, 1)" : "transparent",
+        }}
+      >
         <Image src="/logo.svg" width={42} height={26} alt="camonCorp" />
         <button onClick={() => setIsOpen(true)}>
           <Menu size={28} className="text-white" />
