@@ -28,7 +28,7 @@ export default function NavBar({ cta }: { cta: string }) {
       <div
         className="hidden lg:flex justify-around items-center p-5 fixed w-full z-50 top-[40px] transition-all duration-300 ease-in-out"
         style={{
-          backgroundColor: isScrolled ? "rgba(0, 0, 0, 1)" : "transparent",
+          backgroundColor: isScrolled ? "#141414" : "transparent",
         }}
       >
         <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
