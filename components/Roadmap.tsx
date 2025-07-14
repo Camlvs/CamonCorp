@@ -40,7 +40,7 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                   <span>{index + 1}</span>
                 </div>
 
-                <div className="flex flex-col md:pl-20 gap-4">
+                <div className="flex flex-col md:pl-4 gap-4">
                   <h3 className="hidden md:block text-3xl text-[#FFAC32] font-semibold">
                     {item.title}
                   </h3>
@@ -68,13 +68,12 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                   <OrbitingCircles title1={data.title1} data={data.etape1} />
                 </div>
               ) : index === 1 ? (
-                <div className="flex flex-col gap-4 w-full pl-[50px] pt-4 lg:p-0 justify-center">
+                <div className="flex flex-wrap flex-col gap-4 w-fit pl-[50px] pt-4 lg:p-0 justify-center">
                   {data.etape2.map((etape2, index) => (
                     <p
                       key={index}
                       className={cn(
-                        "px-[18px] py-[4px] text-sm rounded-full w-full",
-                        index % 2 === 0 ? "lg:w-full" : "lg:w-1/2",
+                        "px-[18px] py-[4px] text-sm rounded-full w-fit",
                       )}
                       style={{
                         color: etape2.textColor,

@@ -8,7 +8,8 @@ export const yourProjects = defineType({
     {
       name: "title",
       title: "Title",
-      type: "string",
+      type: "array",
+      of: [{ type: "block" }],
     },
     {
       name: "richText",

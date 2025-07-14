@@ -19,7 +19,7 @@ export function Faq({ questions }: FaqProps) {
     <Accordion
       type="single"
       collapsible
-      className="w-full m-auto text-[#D6D6D6] mt-[35px]"
+      className="w-full m-auto text-[#D6D6D6] mt-[35px] font-poppins"
     >
       {questions.map((q, index) => (
         <AccordionItem value={`item-${index + 1}`} key={index}>

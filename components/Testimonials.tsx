@@ -7,7 +7,10 @@ export default function Testimonials({ data }: { data: Avis }) {
     <div className="mt-12 relative flex w-full flex-col items-center justify-center overflow-hidden">
       <Marquee pauseOnHover className="[--duration:20s]">
         {data.testimonials.map((item, index: number) => (
-          <div className="w-[500px] bg-white rounded-2xl p-6" key={index}>
+          <div
+            className="w-[320px] lg:w-[500px] bg-white rounded-2xl p-6"
+            key={index}
+          >
             <p className="text-black">{item.description}</p>
             <div className="flex gap-2  mt-4">
               <Image

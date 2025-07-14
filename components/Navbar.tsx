@@ -2,46 +2,87 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { PortableTextBlock } from "sanity";
 
-export default function NavBar({ cta }: { cta: string }) {
+export default function NavBar({
+  cta,
+  topBar,
+}: {
+  cta: string;
+  topBar: PortableTextBlock[];
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
+  const [prevScrollY, setPrevScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY);
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > prevScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else if (currentScrollY < prevScrollY) {
+        setIsVisible(true);
+      }
+
+      setPrevScrollY(currentScrollY);
+      setScrollY(currentScrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [prevScrollY]);
 
-  // Background devient noir après 1000px de scroll
   const isScrolled = scrollY > 750;
 
   return (
     <>
+      {/* TopBar */}
+      {topBar && (
+        <div
+          className={`bg-mainRed fixed top-0 left-0 w-full z-50 transition-all duration-300 ease-in-out ${
+            isVisible ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
+          <div className="text-center text-sm py-[10px] text-white">
+            <PortableText value={topBar} />
+          </div>
+        </div>
+      )}
+
       {/* Desktop nav */}
       <div
-        className="hidden lg:flex justify-around items-center p-5 fixed w-full z-50 top-[40px] transition-all duration-300 ease-in-out"
+        className={`hidden lg:flex justify-around items-center p-5 fixed w-full z-50 transition-all duration-300 ease-in-out ${
+          isVisible ? (topBar ? "top-[40px]" : "top-[0px]") : "-top-[100px]"
+        }`}
         style={{
           backgroundColor: isScrolled ? "#141414" : "transparent",
         }}
       >
-        <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
+        <Link href={"/"}>
+          <Image src="/logo.svg" width={78} height={48} alt="camonCorp" />
+        </Link>
         <div className="flex gap-10 font-poppins font-semibold text-white">
           <Link href="#missions">Missions</Link>
           <Link href="#realisations">Réalisations</Link>
           <Link href="#process">Process</Link>
-          <Link href="#refs">Références</Link>
-          <Link href="#tarif">Tarifs</Link>
+          <Link href="#references">Références</Link>
+          <Link href="#tarifs">Tarifs</Link>
         </div>
         <a href={cta} target="_blank" rel="noopener noreferrer">
-          <div className="flex gap-1 items-center text-mainRed font-poppins bg-white rounded-xl px-6 py-2.5">
-            <Image src="/WA.svg" width={22} height={22} alt="whatsapp" />
+          <div className="flex gap-3.5 items-center text-mainRed font-poppins bg-white rounded-xl px-6 py-2.5 hover:bg-mainRed hover:text-white transition-all duration-300 ease-in-out group cursor-pointer">
+            <Image
+              src="/WA.svg"
+              width={22}
+              height={22}
+              alt="whatsapp"
+              className="group-hover:invert group-hover:brightness-0 group-hover:contrast-[100] transition-all duration-300 ease-in-out"
+            />
             Démarrer maintenant
           </div>
         </a>
@@ -49,7 +90,9 @@ export default function NavBar({ cta }: { cta: string }) {
 
       {/* Mobile nav */}
       <div
-        className="z-50 fixed w-full flex lg:hidden justify-between items-center px-5 top-[50px] transition-all duration-300 ease-in-out"
+        className={`z-50 fixed w-full flex py-3 lg:hidden justify-between items-center px-5 transition-all duration-300 ease-in-out ${
+          isVisible ? (topBar ? "top-[40px]" : "top-[50px]") : "-top-[100px]"
+        }`}
         style={{
           backgroundColor: isScrolled ? "rgba(0, 0, 0, 1)" : "transparent",
         }}
@@ -87,10 +130,10 @@ export default function NavBar({ cta }: { cta: string }) {
               <Link href="#process" onClick={() => setIsOpen(false)}>
                 Process
               </Link>
-              <Link href="#refs" onClick={() => setIsOpen(false)}>
+              <Link href="#references" onClick={() => setIsOpen(false)}>
                 Références
               </Link>
-              <Link href="#tarif" onClick={() => setIsOpen(false)}>
+              <Link href="#tarifs" onClick={() => setIsOpen(false)}>
                 Tarifs
               </Link>
             </div>

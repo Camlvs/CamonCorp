@@ -82,7 +82,7 @@ export interface ProjectStatistic {
 }
 
 export interface YourProjects {
-  title: string;
+  title: PortableTextBlock[];
   richText: PortableTextBlock[];
   buttonText: string;
   socialLinks: Array<{
