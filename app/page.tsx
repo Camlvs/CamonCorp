@@ -14,6 +14,7 @@ import { urlFor } from "@/sanity/lib/image";
 import {
   avisQuery,
   chiffresQuery,
+  clientsQuery,
   faqQuery,
   footerQuery,
   headerQuery,
@@ -27,6 +28,7 @@ import {
 import {
   Avis,
   Chiffres,
+  Clients,
   FAQ,
   Footer,
   Header,
@@ -41,7 +43,6 @@ import {
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 export const revalidate = 60;
 
@@ -101,6 +102,11 @@ export default async function Home() {
     tags: ["footer"],
   });
 
+  const clients: Clients = await sanityFetch({
+    query: clientsQuery,
+    tags: ["clients"],
+  });
+
   return (
     <>
       <div className="relative bg-black overflow-hidden">
@@ -120,7 +126,7 @@ export default async function Home() {
         <div
           className={cn(
             "pb-[230px] text-center flex flex-col justify-center items-center pt-[300px] relative z-10 h-[90vh]",
-            header.video ? "" : "main-video",
+            header.video ? "" : "main-video"
           )}
         >
           <div className="text-[32px] lg:text-7xl font-poppins font-semibold">
@@ -147,7 +153,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <Youtubers />
+        <Youtubers data={clients} />
       </div>
       <div className="mt-[70px] lg:px-[50px]" id="missions">
         <div className="bg-[#303030] rounded-2xl flex items-center lg:items-start gap-[40px] p-3 lg:p-[50px] flex-col lg:flex-row justify-between">
@@ -577,7 +583,7 @@ export default async function Home() {
               key={index}
               className={cn(
                 "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6 transition-all duration-300 group ",
-                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white",
+                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white"
               )}
             >
               <p
@@ -585,7 +591,7 @@ export default async function Home() {
                   "lg:text-2xl font-medium transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black",
+                    : "text-white group-hover:text-black"
                 )}
               >
                 {offer.title}
@@ -596,7 +602,7 @@ export default async function Home() {
                   "mt-2 font-raleway font-medium transition-colors duration-300",
                   index === 1
                     ? "text-[#000000CC]"
-                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]",
+                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]"
                 )}
               >
                 {offer.subtitle}
@@ -605,7 +611,7 @@ export default async function Home() {
               <p
                 className={cn(
                   "text-2xl lg:text-5xl font-medium mt-4 transition-all duration-300",
-                  index === 1 ? "text-black" : "group-hover:text-black",
+                  index === 1 ? "text-black" : "group-hover:text-black"
                 )}
               >
                 {index === 1 ? (
@@ -619,7 +625,7 @@ export default async function Home() {
                   <span
                     className={cn(
                       "hidden group-hover:inline",
-                      index !== 1 && "text-black",
+                      index !== 1 && "text-black"
                     )}
                   >
                     {offer.pricing}
@@ -638,7 +644,7 @@ export default async function Home() {
                     "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9 transition-colors duration-300",
                     index === 1
                       ? "bg-[#E50C00] hover:bg-[#D50B00] text-white"
-                      : "bg-[#333] group-hover:bg-[#E50C00]",
+                      : "bg-[#333] group-hover:bg-[#E50C00]"
                   )}
                 >
                   <Image
@@ -656,7 +662,7 @@ export default async function Home() {
                   "w-full h-[1px] mt-11 mb-6 transition-colors duration-300",
                   index === 1
                     ? "bg-[#E50C00]"
-                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]",
+                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]"
                 )}
               ></span>
 
@@ -665,7 +671,7 @@ export default async function Home() {
                   "font-medium text-[22px] transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black",
+                    : "text-white group-hover:text-black"
                 )}
               >
                 {offer.titleOffre}
@@ -679,7 +685,7 @@ export default async function Home() {
                       "flex items-center gap-2 transition-colors duration-300",
                       index === 1
                         ? "text-black/80"
-                        : "text-white group-hover:text-black/80",
+                        : "text-white group-hover:text-black/80"
                     )}
                   >
                     <Image
@@ -696,7 +702,7 @@ export default async function Home() {
                       alt="check"
                       className={cn(
                         "hidden group-hover:inline",
-                        index === 1 && "hidden",
+                        index === 1 && "hidden"
                       )}
                     />
                     {feature}
@@ -741,7 +747,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>
@@ -763,7 +769,7 @@ export default async function Home() {
             />
           )}
           <a href={header.cta} target="_blank" rel="noopener noreferrer">
-            <div className="w-[225px] lg:w-fit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm lg:text-base flex gap-2.5 items-center mt-[50px] px-2 lg:px-10 py-3 rounded-xl font-poppins lg:font-semibold bg-mainRed text-white border border-transparent hover:border-[#E50C00] hover:bg-white hover:text-mainRed transition-all duration-300 ease-in-out group">
+            <div className="w-[225px] lg:w-fit  absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm lg:text-base flex gap-2.5 items-center mt-[50px] px-2 lg:px-10 py-3 rounded-xl font-poppins lg:font-semibold bg-mainRed text-white border border-transparent hover:border-[#E50C00] hover:bg-white hover:text-mainRed transition-all duration-300 ease-in-out group">
               Donnez vie à votre projet
               <Image
                 src={"rightArrow.svg"}
@@ -787,7 +793,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>

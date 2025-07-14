@@ -178,3 +178,11 @@ export type Footer = {
   contactText: string;
   email: string;
 };
+export interface Client {
+  name: string;
+  image: string;
+}
+
+export interface Clients {
+  clientsList: Client[];
+}

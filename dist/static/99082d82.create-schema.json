@@ -400,6 +400,36 @@
   {
     "fields": [
       {
+        "of": [
+          {
+            "fields": [
+              {
+                "name": "name",
+                "type": "string",
+                "title": "Client Name"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "name": "image",
+                "type": "image",
+                "title": "Profile Image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "clientsList",
+        "type": "array"
+      }
+    ],
+    "name": "clients",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
         "name": "title",
         "type": "string"
       },

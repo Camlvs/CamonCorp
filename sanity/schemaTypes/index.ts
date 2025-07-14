@@ -1,6 +1,7 @@
 import { type SchemaTypeDefinition } from "sanity";
 import avis from "./avis";
 import { chiffres } from "./chiffres";
+import { clients } from "./clients";
 import faq from "./faq";
 import footer from "./footer";
 import { header } from "./header";
@@ -14,6 +15,7 @@ import { youtubers } from "./youtubers";
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
     header,
+    clients,
     mission,
     youtubers,
     chiffres,

@@ -145,3 +145,12 @@ export const footerQuery = groq`*[_type == "footer"][0] {
   contactText,
   email
 }`;
+
+export const clientsQuery = groq`*[_type == "clients"][0] {
+  title,
+  subTitle,
+  clientsList[] {
+    name,
+    "image": image.asset->url
+  }
+}`;
