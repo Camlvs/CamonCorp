@@ -37,9 +37,23 @@ function getTransform(angle: number, radius: number): React.CSSProperties {
   };
 }
 
-function isSafari(): boolean {
+function isSafariMobile(): boolean {
   if (typeof window === "undefined") return false;
-  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+  const ua = navigator.userAgent;
+  // iOS Safari detection (iPhone/iPad/iPod) and not Chrome/Firefox/Opera
+  const isIOS = /iP(ad|hone|od)/.test(ua);
+  const isSafari = !!ua.match(/Version\/[\d.]+.*Safari/);
+  return isIOS && isSafari;
+}
+
+function isSafariDesktop(): boolean {
+  if (typeof window === "undefined") return false;
+  const ua = navigator.userAgent;
+  // Desktop Safari detection (Macintosh + Safari, not Chrome)
+  const isMac = /Macintosh/.test(ua);
+  const isSafari = !!ua.match(/Version\/[\d.]+.*Safari/);
+  const isNotChrome = !/Chrome|CriOS|Chromium/.test(ua);
+  return isMac && isSafari && isNotChrome;
 }
 
 export function OrbitingCircles({
@@ -57,10 +71,12 @@ export function OrbitingCircles({
   const [isMobile, setIsMobile] = useState(false);
   const [angles, setAngles] = useState<number[]>([]);
   const animationFrame = useRef<number | null>(null);
-  const isSafariBrowser = useRef<boolean>(false);
+  const isSafariMobileBrowser = useRef<boolean>(false);
+  const isSafariDesktopBrowser = useRef<boolean>(false);
 
   useEffect(() => {
-    isSafariBrowser.current = isSafari();
+    isSafariMobileBrowser.current = isSafariMobile();
+    isSafariDesktopBrowser.current = isSafariDesktop();
   }, []);
 
   useEffect(() => {
@@ -83,9 +99,9 @@ export function OrbitingCircles({
   const visibleData =
     isMobile && data ? data.slice(0, Math.ceil(data.length / 2)) : data;
 
-  // Animation JS pour Safari
+  // Animation JS pour tous les navigateurs (Safari et autres)
   useEffect(() => {
-    if (!isSafariBrowser.current || !visibleData) return;
+    if (!visibleData || visibleData.length === 0) return;
 
     const total = visibleData.length;
     const baseAngles = visibleData.map((_, i) => (360 / total) * i);
@@ -134,39 +150,18 @@ export function OrbitingCircles({
       </div>
       {visibleData?.map((etape, index) => {
         const total = visibleData.length;
-        const baseAngle = (360 / total) * index;
-        const animationName = reverse ? "orbit-reverse" : "orbit";
-        const animationDuration = `${calculatedDuration}s`;
-        const animationTiming = "linear";
-        const animationIteration = "infinite";
+        // Utilise l'angle animé pour tous les navigateurs
+        const angle =
+          angles.length === total ? angles[index] : (360 / total) * index;
 
-        // Safari: on anime l'angle en JS, sinon on utilise CSS animation
-        let style: React.CSSProperties;
-        if (isSafariBrowser.current && angles.length === total) {
-          style = {
-            ...getTransform(angles[index], computedRadius),
-            backgroundColor: etape.backgroundColor,
-            minWidth: 0,
-            width: "fit-content",
-            maxWidth: "100%",
-            transition: "transform 0.1s linear",
-          };
-        } else {
-          style = {
-            ...getTransform(baseAngle, computedRadius),
-            backgroundColor: etape.backgroundColor,
-            animationName,
-            animationDuration,
-            animationTimingFunction: animationTiming,
-            animationIterationCount: animationIteration,
-            // @ts-expect-error -- custom property for keyframes
-            "--orbit-angle": `${baseAngle}deg`,
-            "--orbit-radius": `${computedRadius}px`,
-            minWidth: 0,
-            width: "fit-content",
-            maxWidth: "100%",
-          };
-        }
+        const style: React.CSSProperties = {
+          ...getTransform(angle, computedRadius),
+          backgroundColor: etape.backgroundColor,
+          minWidth: 0,
+          width: "fit-content",
+          maxWidth: "100%",
+          transition: "transform 0.1s linear",
+        };
 
         return (
           <div
@@ -195,37 +190,6 @@ export function OrbitingCircles({
           </div>
         );
       })}
-      {/* Les keyframes ne sont utilisées que sur Chrome/Firefox */}
-      {!isSafariBrowser.current && (
-        <style jsx>{`
-          @keyframes orbit {
-            0% {
-              transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
-                translateX(var(--orbit-radius, 200px))
-                rotate(calc(-1 * var(--orbit-angle, 0deg)));
-            }
-            100% {
-              transform: translate(-50%, -50%)
-                rotate(calc(360deg + var(--orbit-angle, 0deg)))
-                translateX(var(--orbit-radius, 200px))
-                rotate(calc(-360deg - var(--orbit-angle, 0deg)));
-            }
-          }
-          @keyframes orbit-reverse {
-            0% {
-              transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
-                translateX(var(--orbit-radius, 200px))
-                rotate(calc(-1 * var(--orbit-angle, 0deg)));
-            }
-            100% {
-              transform: translate(-50%, -50%)
-                rotate(calc(-360deg + var(--orbit-angle, 0deg)))
-                translateX(var(--orbit-radius, 200px))
-                rotate(calc(360deg - var(--orbit-angle, 0deg)));
-            }
-          }
-        `}</style>
-      )}
     </>
   );
 }
