@@ -833,6 +833,9 @@ export default async function Home() {
               </Link>
             </div>
           ))}
+          <Link href="mailto:camille@camoncorp.co">
+            <Image width={24} height={24} src={"mail.svg"} alt="mail" />
+          </Link>
         </div>
       </div>
 
@@ -871,6 +874,9 @@ export default async function Home() {
                 </Link>
               </div>
             ))}
+            <Link href="mailto:camille@camoncorp.co">
+              <Image width={24} height={24} src={"mail.svg"} alt="mail" />
+            </Link>
           </div>
         </div>
       </div>

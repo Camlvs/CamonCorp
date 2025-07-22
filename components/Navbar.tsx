@@ -98,7 +98,7 @@ export default function NavBar({
         }}
       >
         <Image
-          src="/logo.svg"
+          src="/logoMobile.png"
           width={42}
           height={26}
           alt="camonCorp"

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { Etape1 } from "@/sanity/lib/type";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export type OrbitingCirclesProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
@@ -16,13 +16,14 @@ export type OrbitingCirclesProps = React.HTMLAttributes<HTMLDivElement> & {
   title1: string;
 };
 
+/**
+ * Safari ne supporte pas les custom properties dans les keyframes.
+ * On anime donc l'angle en JS et on applique le transform manuellement.
+ */
 function getTransform(angle: number, radius: number): React.CSSProperties {
-  // Convert angle to radians
   const rad = (angle * Math.PI) / 180;
-  // Calculate x and y position
   const x = Math.cos(rad) * radius;
   const y = Math.sin(rad) * radius;
-  // Center the item
   return {
     transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
     position: "absolute",
@@ -34,6 +35,11 @@ function getTransform(angle: number, radius: number): React.CSSProperties {
     alignItems: "center",
     justifyContent: "center",
   };
+}
+
+function isSafari(): boolean {
+  if (typeof window === "undefined") return false;
+  return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 }
 
 export function OrbitingCircles({
@@ -49,6 +55,13 @@ export function OrbitingCircles({
 }: OrbitingCirclesProps) {
   const [computedRadius, setComputedRadius] = useState(radius);
   const [isMobile, setIsMobile] = useState(false);
+  const [angles, setAngles] = useState<number[]>([]);
+  const animationFrame = useRef<number | null>(null);
+  const isSafariBrowser = useRef<boolean>(false);
+
+  useEffect(() => {
+    isSafariBrowser.current = isSafari();
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -69,6 +82,35 @@ export function OrbitingCircles({
 
   const visibleData =
     isMobile && data ? data.slice(0, Math.ceil(data.length / 2)) : data;
+
+  // Animation JS pour Safari
+  useEffect(() => {
+    if (!isSafariBrowser.current || !visibleData) return;
+
+    const total = visibleData.length;
+    const baseAngles = visibleData.map((_, i) => (360 / total) * i);
+
+    let start: number | null = null;
+
+    function animate(now: number) {
+      if (start === null) start = now;
+      const elapsed = (now - start) / 1000; // en secondes
+      const progress = (elapsed / calculatedDuration) % 1;
+      const direction = reverse ? -1 : 1;
+      const newAngles = baseAngles.map(
+        (base) => base + direction * 360 * progress
+      );
+      setAngles(newAngles);
+      animationFrame.current = requestAnimationFrame(animate);
+    }
+
+    animationFrame.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visibleData, calculatedDuration, reverse]);
 
   return (
     <>
@@ -97,20 +139,34 @@ export function OrbitingCircles({
         const animationDuration = `${calculatedDuration}s`;
         const animationTiming = "linear";
         const animationIteration = "infinite";
-        const style: React.CSSProperties = {
-          ...getTransform(baseAngle, computedRadius),
-          backgroundColor: etape.backgroundColor,
-          animationName,
-          animationDuration,
-          animationTimingFunction: animationTiming,
-          animationIterationCount: animationIteration,
-          // @ts-expect-error -- custom property for keyframes
-          "--orbit-angle": `${baseAngle}deg`,
-          "--orbit-radius": `${computedRadius}px`,
-          minWidth: 0,
-          width: "fit-content",
-          maxWidth: "100%",
-        };
+
+        // Safari: on anime l'angle en JS, sinon on utilise CSS animation
+        let style: React.CSSProperties;
+        if (isSafariBrowser.current && angles.length === total) {
+          style = {
+            ...getTransform(angles[index], computedRadius),
+            backgroundColor: etape.backgroundColor,
+            minWidth: 0,
+            width: "fit-content",
+            maxWidth: "100%",
+            transition: "transform 0.1s linear",
+          };
+        } else {
+          style = {
+            ...getTransform(baseAngle, computedRadius),
+            backgroundColor: etape.backgroundColor,
+            animationName,
+            animationDuration,
+            animationTimingFunction: animationTiming,
+            animationIterationCount: animationIteration,
+            // @ts-expect-error -- custom property for keyframes
+            "--orbit-angle": `${baseAngle}deg`,
+            "--orbit-radius": `${computedRadius}px`,
+            minWidth: 0,
+            width: "fit-content",
+            maxWidth: "100%",
+          };
+        }
 
         return (
           <div
@@ -139,34 +195,37 @@ export function OrbitingCircles({
           </div>
         );
       })}
-      <style jsx>{`
-        @keyframes orbit {
-          0% {
-            transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
-              translateX(var(--orbit-radius, 200px))
-              rotate(calc(-1 * var(--orbit-angle, 0deg)));
+      {/* Les keyframes ne sont utilisées que sur Chrome/Firefox */}
+      {!isSafariBrowser.current && (
+        <style jsx>{`
+          @keyframes orbit {
+            0% {
+              transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
+                translateX(var(--orbit-radius, 200px))
+                rotate(calc(-1 * var(--orbit-angle, 0deg)));
+            }
+            100% {
+              transform: translate(-50%, -50%)
+                rotate(calc(360deg + var(--orbit-angle, 0deg)))
+                translateX(var(--orbit-radius, 200px))
+                rotate(calc(-360deg - var(--orbit-angle, 0deg)));
+            }
           }
-          100% {
-            transform: translate(-50%, -50%)
-              rotate(calc(360deg + var(--orbit-angle, 0deg)))
-              translateX(var(--orbit-radius, 200px))
-              rotate(calc(-360deg - var(--orbit-angle, 0deg)));
+          @keyframes orbit-reverse {
+            0% {
+              transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
+                translateX(var(--orbit-radius, 200px))
+                rotate(calc(-1 * var(--orbit-angle, 0deg)));
+            }
+            100% {
+              transform: translate(-50%, -50%)
+                rotate(calc(-360deg + var(--orbit-angle, 0deg)))
+                translateX(var(--orbit-radius, 200px))
+                rotate(calc(360deg - var(--orbit-angle, 0deg)));
+            }
           }
-        }
-        @keyframes orbit-reverse {
-          0% {
-            transform: translate(-50%, -50%) rotate(var(--orbit-angle, 0deg))
-              translateX(var(--orbit-radius, 200px))
-              rotate(calc(-1 * var(--orbit-angle, 0deg)));
-          }
-          100% {
-            transform: translate(-50%, -50%)
-              rotate(calc(-360deg + var(--orbit-angle, 0deg)))
-              translateX(var(--orbit-radius, 200px))
-              rotate(calc(360deg - var(--orbit-angle, 0deg)));
-          }
-        }
-      `}</style>
+        `}</style>
+      )}
     </>
   );
 }
