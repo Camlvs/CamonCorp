@@ -443,7 +443,7 @@ export default async function Home() {
               );
             })()}
           </p>
-          <div className="text-center lg:text-start mt-10 lg:text-xl">
+          <div className="text-center lg:text-start mt-2 lg:mt-10 lg:text-xl">
             <PortableText value={valeurs.description} />
           </div>
           <Link href={header.cta} target="_blank" rel="noopener noreferrer">

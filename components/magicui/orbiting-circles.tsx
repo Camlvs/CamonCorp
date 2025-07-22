@@ -56,7 +56,7 @@ function isSafariDesktop(): boolean {
   return isMac && isSafari && isNotChrome;
 }
 
-export function OrbitingCircles({
+export default function OrbitingCircles({
   className,
   reverse,
   duration = 50,
@@ -68,7 +68,6 @@ export function OrbitingCircles({
   ...props
 }: OrbitingCirclesProps) {
   const [computedRadius, setComputedRadius] = useState(radius);
-  const [isMobile, setIsMobile] = useState(false);
   const [angles, setAngles] = useState<number[]>([]);
   const animationFrame = useRef<number | null>(null);
   const isSafariMobileBrowser = useRef<boolean>(false);
@@ -82,24 +81,15 @@ export function OrbitingCircles({
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mediaQuery = window.matchMedia("(max-width: 768px)");
-    const handleResize = () => setIsMobile(mediaQuery.matches);
-
-    handleResize();
-    mediaQuery.addEventListener("change", handleResize);
 
     setComputedRadius(mediaQuery.matches ? 120 : radius);
 
-    return () => {
-      mediaQuery.removeEventListener("change", handleResize);
-    };
+    return () => {};
   }, [radius]);
 
   const calculatedDuration = duration / speed;
+  const visibleData = data;
 
-  const visibleData =
-    isMobile && data ? data.slice(0, Math.ceil(data.length / 2)) : data;
-
-  // Animation JS pour tous les navigateurs (Safari et autres)
   useEffect(() => {
     if (!visibleData || visibleData.length === 0) return;
 
@@ -110,7 +100,7 @@ export function OrbitingCircles({
 
     function animate(now: number) {
       if (start === null) start = now;
-      const elapsed = (now - start) / 1000; // en secondes
+      const elapsed = (now - start) / 1000;
       const progress = (elapsed / calculatedDuration) % 1;
       const direction = reverse ? -1 : 1;
       const newAngles = baseAngles.map(
@@ -125,7 +115,6 @@ export function OrbitingCircles({
     return () => {
       if (animationFrame.current) cancelAnimationFrame(animationFrame.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibleData, calculatedDuration, reverse]);
 
   return (
@@ -150,7 +139,7 @@ export function OrbitingCircles({
       </div>
       {visibleData?.map((etape, index) => {
         const total = visibleData.length;
-        // Utilise l'angle animé pour tous les navigateurs
+        // Sur mobile, angle statique; sur desktop, angle animé
         const angle =
           angles.length === total ? angles[index] : (360 / total) * index;
 

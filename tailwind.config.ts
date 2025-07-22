@@ -71,11 +71,11 @@ export default {
         orbit: {
           "0%": {
             transform:
-              "rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg))",
+              "rotate(calc(var(--angle, 0deg))) translateY(calc(var(--radius, 160px))) rotate(calc(var(--angle, 0deg) * -1))",
           },
           "100%": {
             transform:
-              "rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg))",
+              "rotate(calc(var(--angle, 0deg) + 360deg)) translateY(calc(var(--radius, 160px))) rotate(calc((var(--angle, 0deg) * -1) - 360deg))",
           },
         },
         gradient: {
@@ -105,7 +105,7 @@ export default {
         },
       },
       animation: {
-        orbit: "orbit calc(var(--duration)*1s) linear infinite",
+        orbit: "orbit var(--duration, 20s) linear infinite",
         marquee: "marquee var(--duration) infinite linear",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
         gradient: "gradient 8s linear infinite",

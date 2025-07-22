@@ -1,10 +1,10 @@
 "use client";
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
 import { cn } from "@/lib/utils";
 import { YourVideo } from "@/sanity/lib/type";
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import OrbitingCircles from "./magicui/orbiting-circles";
 
 export default function Roadmap({ data }: { data: YourVideo }) {
   const ref = useRef<HTMLDivElement>(null);
