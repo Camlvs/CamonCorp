@@ -97,7 +97,13 @@ export default function NavBar({
           backgroundColor: isScrolled ? "rgba(0, 0, 0, 1)" : "transparent",
         }}
       >
-        <Image src="/logo.svg" width={42} height={26} alt="camonCorp" />
+        <Image
+          src="/logo.svg"
+          width={42}
+          height={26}
+          alt="camonCorp"
+          className="object-cover"
+        />
         <button onClick={() => setIsOpen(true)}>
           <Menu size={28} className="text-white" />
         </button>

@@ -6,7 +6,9 @@ import Image from "next/image";
 const ReviewCard = ({ client }: { client: Client }) => {
   return (
     <figure
-      className={cn("relative w-64 cursor-pointer overflow-hidden rounded-xl")}
+      className={cn(
+        "relative lg:w-64 cursor-pointer overflow-hidden rounded-xl",
+      )}
     >
       <div className="flex items-center gap-2 p-2 ">
         <Image

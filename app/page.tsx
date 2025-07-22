@@ -126,13 +126,13 @@ export default async function Home() {
         <div
           className={cn(
             "pb-[230px] text-center flex flex-col justify-center items-center pt-[300px] relative z-10 h-[90vh]",
-            header.video ? "" : "main-video"
+            header.video ? "" : "main-video",
           )}
         >
-          <div className="text-[32px] lg:text-7xl font-poppins font-semibold">
+          <div className="text-[32px] px-[1px] lg:text-7xl font-poppins font-semibold">
             <PortableText value={header.title} />
           </div>
-          <div className="text-[#A9A9A9] text-[18px] lg:text-2xl px-[32px] lg:px-0 mt-7">
+          <div className="text-[#A9A9A9] text-[18px] lg:text-2xl px-[32px] lg:px-0 mt-3.5 lg:mt-7">
             <PortableText value={header.subTitle} />
           </div>
           <a href={header.cta} target="_blank" rel="noopener noreferrer">
@@ -156,7 +156,7 @@ export default async function Home() {
         <Youtubers data={clients} />
       </div>
       <div className="mt-[70px] lg:px-[50px]" id="missions">
-        <div className="bg-[#303030] rounded-2xl flex items-center lg:items-start gap-[40px] p-3 lg:p-[50px] flex-col lg:flex-row justify-between">
+        <div className="bg-[#303030] rounded-2xl flex items-center lg:items-start gap-[40px] p-3 lg:p-[50px] flex-col lg:flex-row justify-between pb-10 lg:pb-10">
           <div className="flex flex-col  pt-6 lg:pt-0">
             <div className="mx-auto lg:mx-0">
               <Tooltip text={mission.title} />
@@ -167,7 +167,7 @@ export default async function Home() {
                 const lastTwo = words.slice(-3).join(" ");
                 const before = words.slice(0, -3).join(" ");
                 return (
-                  <div className="text-center lg:text-left text-[28px] lg:text-[48px] max-w-[604px] mt-4">
+                  <div className="text-center lg:text-left text-[28px] lg:text-[48px] max-w-[604px] mt-4 gap-2 leading-10 lg:leading-none">
                     {before && <span>{before} </span>} <br />
                     <AnimatedGradientText>{lastTwo}</AnimatedGradientText>
                   </div>
@@ -224,7 +224,7 @@ export default async function Home() {
           <Tooltip text={youtubers.title} />
         </div>
 
-        <div className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
+        <div className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:items-start">
           {(() => {
             const words = youtubers.subTitle.trim().split(" ");
             const lastTwo = words.slice(-3).join(" ");
@@ -237,7 +237,7 @@ export default async function Home() {
             );
           })()}
         </div>
-        <div className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 lg:mb-0">
           {youtubers.youtubersList.map((youtuber: Youtuber) => (
             <div
               key={youtuber.name}
@@ -284,7 +284,7 @@ export default async function Home() {
         <div className="text-2xl font-bold mb-6">
           <Tooltip text={chiffres.title} />
         </div>
-        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
+        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:block">
           {(() => {
             const words = chiffres.subtitle.trim().split(" ");
             const lastTwo = words.slice(-3).join(" ");
@@ -343,7 +343,7 @@ export default async function Home() {
                     <Image
                       width={24}
                       height={24}
-                      src={`/${item.platform.toLowerCase()}.svg`}
+                      src={`/${item.platform.toLowerCase()}_white.svg`}
                       alt={item.platform}
                     />
                   </Link>
@@ -583,7 +583,7 @@ export default async function Home() {
               key={index}
               className={cn(
                 "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6 transition-all duration-300 group ",
-                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white"
+                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white",
               )}
             >
               <p
@@ -591,7 +591,7 @@ export default async function Home() {
                   "lg:text-2xl font-medium transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black"
+                    : "text-white group-hover:text-black",
                 )}
               >
                 {offer.title}
@@ -602,7 +602,7 @@ export default async function Home() {
                   "mt-2 font-raleway font-medium transition-colors duration-300",
                   index === 1
                     ? "text-[#000000CC]"
-                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]"
+                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]",
                 )}
               >
                 {offer.subtitle}
@@ -611,7 +611,7 @@ export default async function Home() {
               <p
                 className={cn(
                   "text-2xl lg:text-5xl font-medium mt-4 transition-all duration-300",
-                  index === 1 ? "text-black" : "group-hover:text-black"
+                  index === 1 ? "text-black" : "group-hover:text-black",
                 )}
               >
                 {index === 1 ? (
@@ -625,7 +625,7 @@ export default async function Home() {
                   <span
                     className={cn(
                       "hidden group-hover:inline",
-                      index !== 1 && "text-black"
+                      index !== 1 && "text-black",
                     )}
                   >
                     {offer.pricing}
@@ -644,7 +644,7 @@ export default async function Home() {
                     "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9 transition-colors duration-300",
                     index === 1
                       ? "bg-[#E50C00] hover:bg-[#D50B00] text-white"
-                      : "bg-[#333] group-hover:bg-[#E50C00]"
+                      : "bg-[#333] group-hover:bg-[#E50C00]",
                   )}
                 >
                   <Image
@@ -662,7 +662,7 @@ export default async function Home() {
                   "w-full h-[1px] mt-11 mb-6 transition-colors duration-300",
                   index === 1
                     ? "bg-[#E50C00]"
-                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]"
+                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]",
                 )}
               ></span>
 
@@ -671,7 +671,7 @@ export default async function Home() {
                   "font-medium text-[22px] transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black"
+                    : "text-white group-hover:text-black",
                 )}
               >
                 {offer.titleOffre}
@@ -685,7 +685,7 @@ export default async function Home() {
                       "flex items-center gap-2 transition-colors duration-300",
                       index === 1
                         ? "text-black/80"
-                        : "text-white group-hover:text-black/80"
+                        : "text-white group-hover:text-black/80",
                     )}
                   >
                     <Image
@@ -702,7 +702,7 @@ export default async function Home() {
                       alt="check"
                       className={cn(
                         "hidden group-hover:inline",
-                        index === 1 && "hidden"
+                        index === 1 && "hidden",
                       )}
                     />
                     {feature}
@@ -747,7 +747,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              ))
+              )),
             )}
           </div>
         </div>
@@ -793,7 +793,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              ))
+              )),
             )}
           </div>
         </div>
