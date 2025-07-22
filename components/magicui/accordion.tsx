@@ -15,8 +15,15 @@ const AccordionItem = React.forwardRef<
   <AccordionPrimitive.Item
     ref={ref}
     className={cn(
-      "border-t [&[data-state=open]]:bg-white [&[data-state=open]]:rounded-2xl [&[data-state=open]]:text-black [&[data-state=open]]:px-2 transition-all",
-      className,
+      // Remove border on open to prevent border overlapping with border radius
+      "border-t transition-all",
+      "[&[data-state=open]]:bg-white",
+      "[&[data-state=open]]:rounded-2xl",
+      "[&[data-state=open]]:text-black",
+      "lg:[&[data-state=open]]:px-8",
+      "[&[data-state=open]]:px-2",
+      "[&[data-state=open]]:border-t-0", // Remove top border when open
+      className
     )}
     {...props}
   />
@@ -32,12 +39,12 @@ const AccordionTrigger = React.forwardRef<
       ref={ref}
       className={cn(
         "cursor-pointer flex flex-1 items-center gap-[14px] flex-row justify-between py-8 font-medium transition-all text-left text-white [&[data-state=open]>svg]:rotate-180 text-xl [&[data-state=open]]:text-[#E50C00] [&[data-state=open]]:rounded-2xl",
-        className,
+        className
       )}
       {...props}
     >
       {children}
-      <CircleChevronDown className="h-[32[x] w-[32px] shrink-0 text-muted-foreground transition-transform duration-200" />
+      <CircleChevronDown className="h-[32px] w-[32px] shrink-0 text-muted-foreground transition-transform duration-200" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));
@@ -51,8 +58,10 @@ const AccordionContent = React.forwardRef<
     ref={ref}
     className={cn(
       "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
-      "[data-state=open]:rounded-b-2xl", // <-- Ajout ici
-      className,
+      "[data-state=open]:rounded-b-2xl",
+      // Remove top border on open to prevent border overlap with parent
+      "[data-state=open]:border-t-0",
+      className
     )}
     {...props}
   >

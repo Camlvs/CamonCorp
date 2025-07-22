@@ -1,10 +1,10 @@
 "use client";
+import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
+import { cn } from "@/lib/utils";
 import { YourVideo } from "@/sanity/lib/type";
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
-import { OrbitingCircles } from "@/components/magicui/orbiting-circles";
-import { cn } from "@/lib/utils";
+import { useEffect, useRef, useState } from "react";
 
 export default function Roadmap({ data }: { data: YourVideo }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -28,15 +28,15 @@ export default function Roadmap({ data }: { data: YourVideo }) {
 
   return (
     <div className="relative w-full overflow-clip">
-      <div className=" w-full md:px-10" ref={containerRef}>
+      <div className="w-full md:px-10" ref={containerRef}>
         <div ref={ref} className="relative max-w-7xl mx-auto lg:pb-20">
           {data.videos.map((item, index: number) => (
             <div
               key={index}
-              className="mb-[64px] lg-[mb-0] flex flex-col lg:flex-row justify-start lg:pt-[120px] md:gap-[120px]"
+              className="mb-[64px] lg:[mb-0] flex flex-col lg:flex-row justify-start lg:pt-[120px] md:gap-[120px]"
             >
               <div className="sticky hidden lg:flex flex-row z-40 items-start top-40 self-start w-full max-w-[500px] gap-6">
-                <div className="h-12 w-12 text-xl shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[0_0_10px_rgba(255,255,255,0.2)] flex items-center justify-center text-white font-medium">
+                <div className="h-12 w-12 text-xl shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] flex items-center justify-center text-white font-medium">
                   <span>{index + 1}</span>
                 </div>
 
@@ -49,7 +49,7 @@ export default function Roadmap({ data }: { data: YourVideo }) {
               </div>
 
               <div className="pr-4 flex lg:items-center lg:justify-center lg:hidden gap-4">
-                <div className="z-20 h-10 w-10 shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] shadow-[0_0_10px_rgba(255,255,255,0.2)] flex items-center justify-center text-white font-medium text-sm">
+                <div className="z-20 h-10 w-10 shrink-0 rounded-full bg-gradient-to-b from-[#2a2a2a] to-[#111] flex items-center justify-center text-white font-medium text-sm">
                   <span>{index + 1}</span>
                 </div>
 
@@ -73,7 +73,7 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                     <p
                       key={index}
                       className={cn(
-                        "px-[18px] py-[4px] text-sm rounded-full w-fit",
+                        "px-[18px] py-[4px] text-sm rounded-full w-fit"
                       )}
                       style={{
                         color: etape2.textColor,

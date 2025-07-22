@@ -126,7 +126,7 @@ export default async function Home() {
         <div
           className={cn(
             "pb-[230px] text-center flex flex-col justify-center items-center pt-[300px] relative z-10 h-[90vh]",
-            header.video ? "" : "main-video",
+            header.video ? "" : "main-video"
           )}
         >
           <div className="text-[32px] px-[1px] lg:text-7xl font-poppins font-semibold">
@@ -532,7 +532,7 @@ export default async function Home() {
         <div className="text-2xl font-bold mb-6">
           <Tooltip text={avis.title} />
         </div>
-        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2">
+        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:block">
           {(() => {
             const words = avis.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -545,7 +545,7 @@ export default async function Home() {
             );
           })()}
         </p>
-        <div className="mt-6 text-[#F0F0F0] text-base lg:text-2xl text-center lg:leading-[40px] px-6 lg:px-0">
+        <div className="mt-6 text-[#F0F0F0] text-base lg:text-2xl text-center lg:leading-[40px] px-[5px] lg:px-0">
           <PortableText value={avis.description} />
         </div>
         <Testimonials data={avis} />
@@ -583,7 +583,7 @@ export default async function Home() {
               key={index}
               className={cn(
                 "lg:w-[390px] flex flex-col items-start rounded-2xl py-10 px-6 transition-all duration-300 group ",
-                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white",
+                index === 1 ? "bg-white" : "bg-[#282828] hover:bg-white"
               )}
             >
               <p
@@ -591,7 +591,7 @@ export default async function Home() {
                   "lg:text-2xl font-medium transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black",
+                    : "text-white group-hover:text-black"
                 )}
               >
                 {offer.title}
@@ -602,7 +602,7 @@ export default async function Home() {
                   "mt-2 font-raleway font-medium transition-colors duration-300",
                   index === 1
                     ? "text-[#000000CC]"
-                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]",
+                    : "text-[#FFFFFFCC] group-hover:text-[#000000CC]"
                 )}
               >
                 {offer.subtitle}
@@ -611,7 +611,7 @@ export default async function Home() {
               <p
                 className={cn(
                   "text-2xl lg:text-5xl font-medium mt-4 transition-all duration-300",
-                  index === 1 ? "text-black" : "group-hover:text-black",
+                  index === 1 ? "text-black" : "group-hover:text-black"
                 )}
               >
                 {index === 1 ? (
@@ -625,7 +625,7 @@ export default async function Home() {
                   <span
                     className={cn(
                       "hidden group-hover:inline",
-                      index !== 1 && "text-black",
+                      index !== 1 && "text-black"
                     )}
                   >
                     {offer.pricing}
@@ -644,7 +644,7 @@ export default async function Home() {
                     "text-sm py-3 w-full rounded-xl flex gap-2 justify-center mx-auto mt-9 transition-colors duration-300",
                     index === 1
                       ? "bg-[#E50C00] hover:bg-[#D50B00] text-white"
-                      : "bg-[#333] group-hover:bg-[#E50C00]",
+                      : "bg-[#333] group-hover:bg-[#E50C00]"
                   )}
                 >
                   <Image
@@ -662,7 +662,7 @@ export default async function Home() {
                   "w-full h-[1px] mt-11 mb-6 transition-colors duration-300",
                   index === 1
                     ? "bg-[#E50C00]"
-                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]",
+                    : "group-hover:bg-[#E50C00] bg-[linear-gradient(to_left,_#ECD6B1_0%,_#F2766C_50%,_#E73022_100%)]"
                 )}
               ></span>
 
@@ -671,7 +671,7 @@ export default async function Home() {
                   "font-medium text-[22px] transition-colors duration-300",
                   index === 1
                     ? "text-black"
-                    : "text-white group-hover:text-black",
+                    : "text-white group-hover:text-black"
                 )}
               >
                 {offer.titleOffre}
@@ -685,7 +685,7 @@ export default async function Home() {
                       "flex items-center gap-2 transition-colors duration-300",
                       index === 1
                         ? "text-black/80"
-                        : "text-white group-hover:text-black/80",
+                        : "text-white group-hover:text-black/80"
                     )}
                   >
                     <Image
@@ -702,7 +702,7 @@ export default async function Home() {
                       alt="check"
                       className={cn(
                         "hidden group-hover:inline",
-                        index === 1 && "hidden",
+                        index === 1 && "hidden"
                       )}
                     />
                     {feature}
@@ -714,7 +714,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="relative py-12 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl mt-24">
-        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2">
+        <p className="text-[28px] text-center lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:block">
           {(() => {
             const words = faq.title.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -747,7 +747,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>
@@ -793,7 +793,7 @@ export default async function Home() {
                   height={44}
                   className="object-contain mr-4"
                 />
-              )),
+              ))
             )}
           </div>
         </div>
