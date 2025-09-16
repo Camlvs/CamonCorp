@@ -2,7 +2,6 @@ import Button from "@/components/Button";
 import { Faq } from "@/components/Faq";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
-import { TextReveal } from "@/components/magicui/text-reveal";
 import Navbar from "@/components/Navbar";
 import Roadmap from "@/components/Roadmap";
 import Testimonials from "@/components/Testimonials";
@@ -43,6 +42,7 @@ import {
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
+import FeaturesList from "@/components/FeaturesList";
 
 export const revalidate = 60;
 
@@ -132,7 +132,7 @@ export default async function Home() {
           <div className="text-[32px] px-[1px] lg:text-7xl font-poppins font-semibold">
             <PortableText value={header.title} />
           </div>
-          <div className="text-[#A9A9A9] text-[18px] lg:text-2xl px-[32px] lg:px-0 mt-3.5 lg:mt-7">
+          <div className="text-white/80 text-[18px] lg:text-2xl px-[32px] lg:px-0 mt-3.5 lg:mt-7">
             <PortableText value={header.subTitle} />
           </div>
           <a href={header.cta} target="_blank" rel="noopener noreferrer">
@@ -306,7 +306,7 @@ export default async function Home() {
               <p className="mb-2.5 lg:mb-8 text-2l text-[#FFFFFFB3]">
                 {stat.title}
               </p>
-              <div className="text-5xl font-bold">
+              <div className="flex text-5xl font-bold">
                 {stat.textBefore && (
                   <AnimatedGradientText>{stat.textBefore}</AnimatedGradientText>
                 )}
@@ -327,7 +327,7 @@ export default async function Home() {
       <div className="pb-[60px] mt-7 bg-white rounded-2xl lg:mx-[50px]">
         <div className="flex items-center gap-[60px] lg:gap-[100px] px-4 lg:px-[50px] pt-[50px] flex-col-reverse lg:flex-row">
           <div className="flex flex-col">
-            <div className="text-[28px] mb-6 lg:text-5xl pt-10 text-black font-semibold lg:leading-[50px] redStrong">
+            <div className="text-center lg:text-left text-[28px] mb-6 lg:text-5xl pt-10 text-black font-semibold lg:leading-[50px] redStrong">
               <PortableText value={yourProjects.title} />
             </div>
             <div className="mt-4 text-black">
@@ -353,34 +353,38 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative">
-            {yourProjects.projects.slice(0, 3).map((project, index) => {
-              const positions = [
-                "top-12 -left-8 rotate-6", // 1er : en haut à gauche
-                "top-6 -right-6 -rotate-12", // 2e : en haut à droite
-                "top-1/2 -right-12 rotate-2 -translate-y-1/2", // 3e : centré à droite
-              ];
+						{yourProjects.projects
+							.filter((project) => project) // Enlever les éléments vides/null/undefined
+							.slice(0, 3)
+							.map((project, index) => {
+								const positions = [
+									"top-12 -left-8 rotate-6", // 1er : en haut à gauche
+									"top-6 -right-6 -rotate-12", // 2e : en haut à droite
+									"top-1/2 -right-12 rotate-2 -translate-y-1/2", // 3e : centré à droite
+								];
 
-              return (
-                <div
-                  key={index}
-                  className={`absolute ${positions[index]} hidden lg:flex w-fit flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
-                >
-                  <div className="flex gap-2">
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      width={29}
-                      height={29}
-                      className="rounded-full"
-                    />
-                    <p className="text-white">{project.title}</p>
-                  </div>
-                  <p className="text-sm text-[#989898]">
-                    {project.description}
-                  </p>
-                </div>
-              );
-            })}
+								return (
+									<div
+										key={index} // Utiliser project.id si disponible
+										className={`absolute ${positions[index]} hidden lg:flex w-fit flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
+									>
+										<div className="flex gap-2">
+											<Image
+												src={project.image}
+												alt={project.title}
+												width={29}
+												height={29}
+												className="rounded-full"
+											/>
+											<p className="text-white">{project.title}</p>
+										</div>
+										<p className="text-sm text-[#989898]">
+											{project.description}
+										</p>
+									</div>
+								);
+							})
+						}
             <div className="lg:w-[530px]">
               <Image
                 src={yourProjects.image}
@@ -482,11 +486,13 @@ export default async function Home() {
           </div>
         </a>
       </div>
-      <div>
-        <TextReveal className="italic font-semibold">
-          On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
-        </TextReveal>
-      </div>
+			<div className="px-3 lg:px-0 py-[200px] lg:max-w-[1000px] lg:mx-auto text-center relative">
+				<img src="hautGauche.svg" alt="" className="absolute top-20 left-4 lg:left-0 w-[50px] lg:w-[120px]"/>
+				<img src="basDroite.svg" alt="" className="absolute bottom-20 right-4  lg:right-0 w-[50px] lg:w-[120px]"/>
+				<AnimatedGradientText className="text-[42px] lg:text-[70px] italic font-semibold w-full">
+					On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
+				</AnimatedGradientText>
+			</div>
       <div
         id="process"
         className="py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl"
@@ -522,11 +528,12 @@ export default async function Home() {
           <Button text="Je suis convaincu, on y va !" icon="/nextIcon.svg" />
         </a>
       </div>
+			<div id="references"></div>
 
       {/* AVIS */}
 
+			<div id="avis"></div>
       <div
-        id="references"
         className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]"
       >
         <div className="text-2xl font-bold mb-6">
@@ -677,38 +684,7 @@ export default async function Home() {
                 {offer.titleOffre}
               </h4>
 
-              <ul className="mt-4 space-y-4">
-                {offer.features.map((feature, featureIndex) => (
-                  <li
-                    key={featureIndex}
-                    className={cn(
-                      "flex items-center gap-2 transition-colors duration-300",
-                      index === 1
-                        ? "text-black/80"
-                        : "text-white group-hover:text-black/80"
-                    )}
-                  >
-                    <Image
-                      src={index === 1 ? "checkWhite.svg" : "checkDark.svg"}
-                      width={16}
-                      height={16}
-                      alt="check"
-                      className="group-hover:hidden"
-                    />
-                    <Image
-                      src={"checkWhite.svg"}
-                      width={16}
-                      height={16}
-                      alt="check"
-                      className={cn(
-                        "hidden group-hover:inline",
-                        index === 1 && "hidden"
-                      )}
-                    />
-                    {feature}
-                  </li>
-                ))}
-              </ul>
+							<FeaturesList features={offer.features} index={index} />
             </div>
           ))}
         </div>

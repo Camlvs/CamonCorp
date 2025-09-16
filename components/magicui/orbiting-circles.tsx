@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Etape1 } from "@/sanity/lib/type";
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 
 export type OrbitingCirclesProps = React.HTMLAttributes<HTMLDivElement> & {
   className?: string;
@@ -135,7 +136,12 @@ export default function OrbitingCircles({
         </svg>
       )}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-90 text-white text-xl lg:text-[32px] max-w-[210px] text-center font-poppins">
-        {title1}
+        <Image
+					src="logo.svg"
+					alt={title1}
+					width={100}
+					height={100}
+				/>
       </div>
       {visibleData?.map((etape, index) => {
         const total = visibleData.length;

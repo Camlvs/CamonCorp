@@ -72,6 +72,7 @@ export default function NavBar({
           <Link href="#realisations">Réalisations</Link>
           <Link href="#process">Process</Link>
           <Link href="#references">Références</Link>
+          <Link href="#avis">Avis</Link>
           <Link href="#tarifs">Tarifs</Link>
         </div>
         <a href={cta} target="_blank" rel="noopener noreferrer">
@@ -139,6 +140,9 @@ export default function NavBar({
               <Link href="#references" onClick={() => setIsOpen(false)}>
                 Références
               </Link>
+							<Link href="#avis" onClick={() => setIsOpen(false)}>
+								Avis
+							</Link>
               <Link href="#tarifs" onClick={() => setIsOpen(false)}>
                 Tarifs
               </Link>

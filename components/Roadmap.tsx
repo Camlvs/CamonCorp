@@ -63,27 +63,10 @@ export default function Roadmap({ data }: { data: YourVideo }) {
                 </div>
               </div>
 
-              {index === 0 ? (
-                <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
-                  <OrbitingCircles title1={data.title1} data={data.etape1} />
-                </div>
-              ) : index === 1 ? (
-                <div className="flex flex-wrap flex-col gap-4 w-fit pl-[50px] pt-4 lg:p-0 justify-center">
-                  {data.etape2.map((etape2, index) => (
-                    <p
-                      key={index}
-                      className={cn(
-                        "px-[18px] py-[4px] text-sm rounded-full w-fit"
-                      )}
-                      style={{
-                        color: etape2.textColor,
-                        backgroundColor: etape2.backgroundColor,
-                      }}
-                    >
-                      {etape2.title}
-                    </p>
-                  ))}
-                </div>
+              {index === 1 ? (
+									<div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden">
+										<OrbitingCircles title1={data.title1} data={data.etape2} />
+									</div>
               ) : (
                 <div className="relative pl-14 mt-[40px] lg:mt-0 pr-4 md:pl-4 w-full">
                   <Image
