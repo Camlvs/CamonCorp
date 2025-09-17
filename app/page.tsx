@@ -489,9 +489,9 @@ export default async function Home() {
 			<div className="px-3 lg:px-0 py-[200px] lg:max-w-[1000px] lg:mx-auto text-center relative">
 				<img src="hautGauche.svg" alt="" className="absolute top-20 left-4 lg:left-0 w-[50px] lg:w-[120px]"/>
 				<img src="basDroite.svg" alt="" className="absolute bottom-20 right-4  lg:right-0 w-[50px] lg:w-[120px]"/>
-				<AnimatedGradientText className="text-[42px] lg:text-[70px] italic font-semibold w-full">
+				<p className="text-[42px] lg:text-[70px] italic font-semibold w-full">
 					On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
-				</AnimatedGradientText>
+				</p>
 			</div>
       <div
         id="process"
