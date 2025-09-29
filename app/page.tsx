@@ -788,6 +788,9 @@ export default async function Home() {
           <p className="mt-4">
             {footer.contactText} {footer.email}
           </p>
+					<Link target="_blank" href="https://la-landing.fr" >
+						Réalisé par <u>la-landing.fr</u>
+					</Link>
         </div>
         <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
           <Link href="#missions">Missions</Link>
@@ -812,6 +815,7 @@ export default async function Home() {
           <Link href="mailto:camille@camoncorp.co">
             <Image width={24} height={24} src={"mail.svg"} alt="mail" />
           </Link>
+
         </div>
       </div>
 
@@ -828,6 +832,9 @@ export default async function Home() {
           <p className="mt-4">
             {footer.contactText} {footer.email}
           </p>
+					<Link target="_blank" href="https://la-landing.fr" >
+						Réalisé par <u>la-landing.fr</u>
+					</Link>
         </div>
         <div className="mt-6 flex justify-between items-center">
           <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
@@ -853,6 +860,7 @@ export default async function Home() {
             <Link href="mailto:camille@camoncorp.co">
               <Image width={24} height={24} src={"mail.svg"} alt="mail" />
             </Link>
+
           </div>
         </div>
       </div>
