@@ -69,9 +69,8 @@ export default function NavBar({
         </Link>
         <div className="flex gap-10 font-poppins font-semibold text-white">
           <Link href="#missions">Missions</Link>
-          <Link href="#realisations">Réalisations</Link>
-          <Link href="#process">Process</Link>
           <Link href="#references">Références</Link>
+          <Link href="#process">Process</Link>
           <Link href="#avis">Avis</Link>
           <Link href="#tarifs">Tarifs</Link>
         </div>
@@ -131,18 +130,16 @@ export default function NavBar({
               <Link href="#missions" onClick={() => setIsOpen(false)}>
                 Missions
               </Link>
-              <Link href="#realisations" onClick={() => setIsOpen(false)}>
-                Réalisations
+              <Link href="#references" onClick={() => setIsOpen(false)}>
+                Références
               </Link>
               <Link href="#process" onClick={() => setIsOpen(false)}>
                 Process
               </Link>
-              <Link href="#references" onClick={() => setIsOpen(false)}>
-                Références
+
+              <Link href="#avis" onClick={() => setIsOpen(false)}>
+                Avis
               </Link>
-							<Link href="#avis" onClick={() => setIsOpen(false)}>
-								Avis
-							</Link>
               <Link href="#tarifs" onClick={() => setIsOpen(false)}>
                 Tarifs
               </Link>

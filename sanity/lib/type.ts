@@ -172,7 +172,9 @@ export type FAQ = {
 };
 
 export type Footer = {
+  mediaType: "video" | "image";
   video: string;
+  image: string;
   logo1: string;
   logo2: string;
   contactText: string;

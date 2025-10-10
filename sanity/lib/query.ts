@@ -139,7 +139,9 @@ export const faqQuery = groq`*[_type == "faq"][0] {
 }`;
 
 export const footerQuery = groq`*[_type == "footer"][0] {
+  mediaType,
   "video": video.asset->url,
+  "image": image.asset->url,
   "logo1": logo1.asset->url,
   "logo2": logo2.asset->url,
   contactText,

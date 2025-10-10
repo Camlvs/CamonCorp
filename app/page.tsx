@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import { Faq } from "@/components/Faq";
+import FeaturesList from "@/components/FeaturesList";
 import { AnimatedGradientText } from "@/components/magicui/animated-gradient-text";
 import { NumberTicker } from "@/components/magicui/number-ticker";
 import Navbar from "@/components/Navbar";
@@ -42,7 +43,6 @@ import {
 import { PortableText } from "next-sanity";
 import Image from "next/image";
 import Link from "next/link";
-import FeaturesList from "@/components/FeaturesList";
 
 export const revalidate = 60;
 
@@ -219,7 +219,7 @@ export default async function Home() {
           />
         </div>
       </div>
-      <div id="realisations" className="flex flex-col items-center mt-[100px]">
+      <div id="references" className="flex flex-col items-center mt-[100px]">
         <div className="text-2xl font-bold mb-2 lg:mb-6">
           <Tooltip text={youtubers.title} />
         </div>
@@ -237,46 +237,48 @@ export default async function Home() {
             );
           })()}
         </div>
-        <div className="mt-6 lg:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 lg:mb-0">
-          {youtubers.youtubersList.map((youtuber: Youtuber) => (
-            <div
-              key={youtuber.name}
-              className={`flex flex-col items-start ${
-                youtuber.name === "Mastu" ? "row-span-2" : ""
-              }`}
-            >
-              <Link
-                href={youtuber.videoUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block mt-2"
+        <div className="mt-6 lg:mt-12 flex justify-center mb-6 lg:mb-0">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] w-full px-4">
+            {youtubers.youtubersList.slice(0, 8).map((youtuber: Youtuber) => (
+              <div
+                key={youtuber.name}
+                className={`flex flex-col items-start ${
+                  youtuber.name === "Mastu" ? "row-span-2" : ""
+                }`}
               >
-                <div className="overflow-hidden rounded-2xl">
-                  <Image
-                    src={youtuber.image}
-                    alt={youtuber.name}
-                    width={450}
-                    height={280}
-                    className="object-cover hover:scale-110 transition-all duration-300 ease-in-out"
-                  />
-                </div>
-                <div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
-                  <Image
-                    src={"/flash.svg"}
-                    width={28}
-                    height={28}
-                    alt="camoncorp"
-                  />
-                  <p className="text-2xl">{youtuber.name}</p>
-                </div>
-                <div className="ml-2.5 lg:ml-0 mt-4 bg-white rounded-full text-[#E50C00] px-3 text-sm w-fit">
-                  {youtuber.videoTitle}
-                </div>
-              </Link>
-            </div>
-          ))}
+                <Link
+                  href={youtuber.videoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block mt-2 w-full"
+                >
+                  <div className="overflow-hidden rounded-2xl w-full max-w-[450px]">
+                    <Image
+                      src={youtuber.image}
+                      alt={youtuber.name}
+                      width={450}
+                      height={280}
+                      className="object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full h-auto"
+                    />
+                  </div>
+                  <div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
+                    <Image
+                      src={"/flash.svg"}
+                      width={28}
+                      height={28}
+                      alt="camoncorp"
+                    />
+                    <p className="text-2xl">{youtuber.name}</p>
+                  </div>
+                  <div className="ml-2.5 lg:ml-0 mt-4 rounded-full text-[#fff] px-3 text-sm w-fit">
+                    {youtuber.videoTitle}
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
-        <a href={header.cta} target="_blank" rel="noopener noreferrer">
+        <a href="/references" target="_blank" rel="noopener noreferrer">
           <Button text="Voir tous nos projets" icon="/nextIcon.svg" />
         </a>
       </div>
@@ -353,38 +355,37 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative">
-						{yourProjects.projects
-							.filter((project) => project) // Enlever les éléments vides/null/undefined
-							.slice(0, 3)
-							.map((project, index) => {
-								const positions = [
-									"top-12 -left-8 rotate-6", // 1er : en haut à gauche
-									"top-6 -right-6 -rotate-12", // 2e : en haut à droite
-									"top-1/2 -right-12 rotate-2 -translate-y-1/2", // 3e : centré à droite
-								];
+            {yourProjects.projects
+              ?.filter((project) => project)
+              .slice(0, 3)
+              ?.map((project, index) => {
+                const positions = [
+                  "top-12 -left-8 rotate-6", // 1er : en haut à gauche
+                  "top-6 -right-6 -rotate-12", // 2e : en haut à droite
+                  "top-1/2 -right-12 rotate-2 -translate-y-1/2", // 3e : centré à droite
+                ];
 
-								return (
-									<div
-										key={index} // Utiliser project.id si disponible
-										className={`absolute ${positions[index]} hidden lg:flex w-fit flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
-									>
-										<div className="flex gap-2">
-											<Image
-												src={project.image}
-												alt={project.title}
-												width={29}
-												height={29}
-												className="rounded-full"
-											/>
-											<p className="text-white">{project.title}</p>
-										</div>
-										<p className="text-sm text-[#989898]">
-											{project.description}
-										</p>
-									</div>
-								);
-							})
-						}
+                return (
+                  <div
+                    key={index} // Utiliser project.id si disponible
+                    className={`absolute ${positions[index]} hidden lg:flex w-fit flex-col bg-[#242324] rounded-2xl border border-[#FFFFFF59] px-[20px] py-2`}
+                  >
+                    <div className="flex gap-2">
+                      <Image
+                        src={project.image}
+                        alt={project.title}
+                        width={29}
+                        height={29}
+                        className="rounded-full"
+                      />
+                      <p className="text-white">{project.title}</p>
+                    </div>
+                    <p className="text-sm text-[#989898]">
+                      {project.description}
+                    </p>
+                  </div>
+                );
+              })}
             <div className="lg:w-[530px]">
               <Image
                 src={yourProjects.image}
@@ -399,7 +400,7 @@ export default async function Home() {
                 lg:bottom-4 lg:translate-x-0 lg:-left-6 lg:rotate-12 
                 flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] gap-5 w-3/4 justify-center"
             >
-              {yourProjects.statistics.map((stat, index) => (
+              {yourProjects.statistics?.map((stat, index) => (
                 <div
                   key={index}
                   className="flex flex-col gap-2 items-center justify-center"
@@ -486,13 +487,21 @@ export default async function Home() {
           </div>
         </a>
       </div>
-			<div className="px-3 lg:px-0 py-[200px] lg:max-w-[1000px] lg:mx-auto text-center relative">
-				<img src="hautDroit.png" alt="" className="absolute top-20 left-4 lg:left-0 w-[50px] lg:w-[80px]"/>
-				<img src="basGauche.png" alt="" className="absolute bottom-20 right-4  lg:right-0 w-[50px] lg:w-[120px]"/>
-				<AnimatedGradientText className="text-[42px] lg:text-[70px] italic font-semibold w-full">
-					On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
-				</AnimatedGradientText>
-			</div>
+      <div className="px-3 lg:px-0 py-[200px] lg:max-w-[1000px] lg:mx-auto text-center relative">
+        <img
+          src="hautDroit.png"
+          alt=""
+          className="absolute top-20 left-4 lg:left-0 w-[50px] lg:w-[80px]"
+        />
+        <img
+          src="basGauche.png"
+          alt=""
+          className="absolute bottom-20 right-4  lg:right-0 w-[50px] lg:w-[120px]"
+        />
+        <AnimatedGradientText className="text-[42px] lg:text-[70px] italic font-semibold w-full">
+          On ne suit pas les tendances, on les crée. Prêt à marquer YouTube ?
+        </AnimatedGradientText>
+      </div>
       <div
         id="process"
         className="py-12 lg:py-24 px-3 lg:px-14 bg-[#282828] lg:mx-[50px] rounded-2xl"
@@ -528,14 +537,11 @@ export default async function Home() {
           <Button text="Je suis convaincu, on y va !" icon="/nextIcon.svg" />
         </a>
       </div>
-			<div id="references"></div>
 
       {/* AVIS */}
 
-			<div id="avis"></div>
-      <div
-        className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]"
-      >
+      <div id="avis"></div>
+      <div className="relative flex flex-col items-center mt-24 pb-[50px] lg:pb-[130px]">
         <div className="text-2xl font-bold mb-6">
           <Tooltip text={avis.title} />
         </div>
@@ -684,7 +690,7 @@ export default async function Home() {
                 {offer.titleOffre}
               </h4>
 
-							<FeaturesList features={offer.features} index={index} />
+              <FeaturesList features={offer.features} index={index} />
             </div>
           ))}
         </div>
@@ -729,15 +735,23 @@ export default async function Home() {
         </div>
 
         <div className="relative z-10 flex justify-center items-center h-[700px] lg:h-none">
-          {footer.video ? (
+          {footer.mediaType === "video" && footer.video ? (
             <video
               src={footer.video}
               className="w-full max-w-[800px] rounded-2xl"
               controls
             />
+          ) : footer.mediaType === "image" && footer.image ? (
+            <Image
+              src={urlFor(footer.image).url()}
+              alt="Footer Media"
+              height={730}
+              width={1920}
+              className="object-cover h-full rounded-2xl"
+            />
           ) : (
             <Image
-              src="/footer.png"
+              src="/footwer.png"
               alt="Fallback"
               height={730}
               width={1920}
@@ -788,9 +802,9 @@ export default async function Home() {
           <p className="mt-4">
             {footer.contactText} {footer.email}
           </p>
-					<Link target="_blank" href="https://la-landing.fr" >
-						Réalisé par <u>la-landing.fr</u>
-					</Link>
+          <Link target="_blank" href="https://la-landing.fr">
+            Réalisé par <u>la-landing.fr</u>
+          </Link>
         </div>
         <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
           <Link href="#missions">Missions</Link>
@@ -815,7 +829,6 @@ export default async function Home() {
           <Link href="mailto:camille@camoncorp.co">
             <Image width={24} height={24} src={"mail.svg"} alt="mail" />
           </Link>
-
         </div>
       </div>
 
@@ -832,9 +845,9 @@ export default async function Home() {
           <p className="mt-4">
             {footer.contactText} {footer.email}
           </p>
-					<Link target="_blank" href="https://la-landing.fr" >
-						Réalisé par <u>la-landing.fr</u>
-					</Link>
+          <Link target="_blank" href="https://la-landing.fr">
+            Réalisé par <u>la-landing.fr</u>
+          </Link>
         </div>
         <div className="mt-6 flex justify-between items-center">
           <div className="flex flex-col gap-2 text-sm font-poppins font-normal">
@@ -860,11 +873,9 @@ export default async function Home() {
             <Link href="mailto:camille@camoncorp.co">
               <Image width={24} height={24} src={"mail.svg"} alt="mail" />
             </Link>
-
           </div>
         </div>
       </div>
     </>
-
   );
 }

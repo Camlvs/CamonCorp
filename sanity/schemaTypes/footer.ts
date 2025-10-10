@@ -6,12 +6,35 @@ export default defineType({
   type: "document",
   fields: [
     defineField({
+      name: "mediaType",
+      title: "Media Type",
+      type: "string",
+      options: {
+        list: [
+          { title: "Video", value: "video" },
+          { title: "Image", value: "image" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "video",
+    }),
+    defineField({
       name: "video",
       title: "Video",
       type: "file",
       options: {
         accept: "video/*",
       },
+      hidden: ({ parent }) => parent?.mediaType !== "video",
+    }),
+    defineField({
+      name: "image",
+      title: "Image",
+      type: "image",
+      options: {
+        hotspot: true,
+      },
+      hidden: ({ parent }) => parent?.mediaType !== "image",
     }),
     defineField({
       name: "logo1",
