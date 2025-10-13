@@ -239,42 +239,46 @@ export default async function Home() {
         </div>
         <div className="mt-6 lg:mt-12 flex justify-center mb-6 lg:mb-0">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] w-full px-4">
-            {youtubers.youtubersList.slice(0, 8).map((youtuber: Youtuber) => (
-              <div
-                key={youtuber.name}
-                className={`flex flex-col items-start ${
-                  youtuber.name === "Mastu" ? "row-span-2" : ""
-                }`}
-              >
-                <Link
-                  href={youtuber.videoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block mt-2 w-full"
-                >
-                  <div className="overflow-hidden rounded-2xl w-full max-w-[450px]">
-                    <Image
-                      src={youtuber.image}
-                      alt={youtuber.name}
-                      width={450}
-                      height={280}
-                      className="object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full h-auto min-h-[280px]"
-                    />
-                  </div>
-                  <div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
-                    <Image
-                      src={"/flash.svg"}
-                      width={28}
-                      height={28}
-                      alt="camoncorp"
-                    />
-                    <p className="text-2xl">{youtuber.name}</p>
-                  </div>
-                  <div className="ml-2.5 lg:ml-0 mt-4 rounded-full text-[#fff] px-3 text-sm w-fit">
-                    {youtuber.videoTitle}
-                  </div>
-                </Link>
-              </div>
+            {youtubers.youtubersList.slice(0, 8).map((youtuber: Youtuber, idx) => (
+							<div
+								key={youtuber.name}
+								className={`flex flex-col items-start ${
+									idx === 4 ? "row-span-2" : ""
+								}`}
+							>
+								<Link
+									href={youtuber.videoUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									className={`block mt-2 w-full ${idx === 4 ? "h-full" : ""}`}
+								>
+									<div className={`overflow-hidden rounded-2xl w-full max-w-[450px] ${
+										idx === 4 ? "h-[calc(100%-100px)]" : ""
+									}`}>
+										<Image
+											src={youtuber.image}
+											alt={youtuber.name}
+											width={450}
+											height={280}
+											className={`object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full ${
+												idx === 4 ? "h-full" : "h-auto min-h-[280px]"
+											}`}
+										/>
+									</div>
+									<div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
+										<Image
+											src={"/flash.svg"}
+											width={28}
+											height={28}
+											alt="camoncorp"
+										/>
+										<p className="text-2xl">{youtuber.name}</p>
+									</div>
+									<div className="ml-2.5 lg:ml-0 mt-4 rounded-full text-[#fff] px-3 text-sm w-fit">
+										{youtuber.videoTitle}
+									</div>
+								</Link>
+							</div>
             ))}
           </div>
         </div>
@@ -549,7 +553,7 @@ export default async function Home() {
         <div className="text-2xl font-bold mb-6">
           <Tooltip text={avis.title} />
         </div>
-        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:block">
+        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-2 flex flex-col items-center lg:block text-center">
           {(() => {
             const words = avis.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
@@ -578,7 +582,7 @@ export default async function Home() {
         <Image src="/avis.svg" fill alt="ais" className="-z-10" />
 
         <Tooltip text={offre.title} />
-        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-6">
+        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-6 text-center">
           {(() => {
             const words = offre.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
