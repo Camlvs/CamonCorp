@@ -582,7 +582,7 @@ export default async function Home() {
         <Image src="/avis.svg" fill alt="ais" className="-z-10" />
 
         <Tooltip text={offre.title} />
-        <p className="text-[28px] lg:text-5xl font-poppins font-semibold mt-6 text-center">
+        <p className="flex gap-2 text-[28px] lg:text-5xl font-poppins font-semibold mt-6 text-center">
           {(() => {
             const words = offre.subtitle.trim().split(" ");
             const lastTwo = words.slice(-2).join(" ");
