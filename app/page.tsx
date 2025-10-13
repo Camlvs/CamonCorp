@@ -395,38 +395,42 @@ export default async function Home() {
                 className="rounded-2xl w-[340px] h-[520px] lg:h-[790px] lg:!w-[530px] object-cover"
               />
             </div>
-            <div
-              className="absolute -bottom-10 left-1/2 -translate-x-1/2 
-                lg:bottom-4 lg:translate-x-0 lg:-left-6 lg:rotate-12 
-                flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] gap-5 w-3/4 justify-center"
-            >
-              {yourProjects.statistics?.map((stat, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col gap-2 items-center justify-center"
-                >
-                  <p className="text-[#989898] text-xs lg:text-xl">
-                    {stat.title}
-                  </p>
-                  <p className="text-sm lg:text-3xl font-semibold text-white">
-                    <NumberTicker
-                      value={parseFloat(stat.number1)}
-                      className="text-white"
-                    />
-                    M
-                  </p>
-                  <p className="text-[10px] lg:text-sm text-[#17A34A] flex gap-1">
-                    <Image
-                      src={"topArrow.svg"}
-                      width={12}
-                      height={12}
-                      alt="arrow"
-                    />
-                    +{stat.number2}K
-                  </p>
-                </div>
-              ))}
-            </div>
+						{
+							yourProjects.statistics && (
+							<div
+								className="absolute -bottom-10 left-1/2 -translate-x-1/2
+									lg:bottom-4 lg:translate-x-0 lg:-left-6 lg:rotate-12
+									flex bg-[#242324] rounded-2xl p-6 border border-[#FFFFFF59] gap-5 w-3/4 justify-center"
+							>
+								{yourProjects.statistics?.map((stat, index) => (
+									<div
+										key={index}
+										className="flex flex-col gap-2 items-center justify-center"
+									>
+										<p className="text-[#989898] text-xs lg:text-xl">
+											{stat.title}
+										</p>
+										<p className="text-sm lg:text-3xl font-semibold text-white">
+											<NumberTicker
+												value={parseFloat(stat.number1)}
+												className="text-white"
+											/>
+											M
+										</p>
+										<p className="text-[10px] lg:text-sm text-[#17A34A] flex gap-1">
+											<Image
+												src={"topArrow.svg"}
+												width={12}
+												height={12}
+												alt="arrow"
+											/>
+											+{stat.number2}K
+										</p>
+									</div>
+								))}
+							</div>
+							)
+						}
           </div>
         </div>
       </div>
