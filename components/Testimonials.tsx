@@ -13,13 +13,13 @@ export default function Testimonials({ data }: { data: Avis }) {
           >
             <p className="text-black">{item.description}</p>
             <div className="flex gap-2  mt-4">
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={70}
-                height={70}
-                className="rounded-full"
-              />
+								<Image
+									src={item.image}
+									alt={item.title}
+									width={70}
+									height={70}
+									className="rounded-full w-[70x] h-[70px] object-cover"
+								/>
               <div className="text-black flex flex-col justify-between">
                 <p>{item.title}</p>
                 <Image

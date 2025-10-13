@@ -63,7 +63,7 @@ export default async function References() {
                     alt={youtuber.name}
                     width={450}
                     height={280}
-                    className="object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full h-auto"
+                    className="object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full h-auto min-h-[280px]"
                   />
                 </div>
                 <div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
