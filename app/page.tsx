@@ -310,7 +310,7 @@ export default async function Home() {
               </p>
               <div className="flex text-5xl font-bold">
                 {stat.textBefore && (
-                  <AnimatedGradientText>{stat.textBefore}</AnimatedGradientText>
+                  <AnimatedGradientText className="mr-2">{stat.textBefore}</AnimatedGradientText>
                 )}
                 <NumberTicker
                   value={parseFloat(stat.number)}
