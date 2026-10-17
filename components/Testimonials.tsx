@@ -65,6 +65,7 @@ export default function Testimonials({ data }: { data: Avis }) {
 								<div className="w-full max-w-[500px] mx-auto bg-white rounded-2xl p-6">
 									<p className="text-black">{item.description}</p>
 									<div className="flex gap-2 mt-4">
+
 										<Image
 											src={item.image}
 											alt={item.title}

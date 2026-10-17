@@ -43,31 +43,25 @@ export default async function References() {
       <Navbar cta={header.cta} topBar={header.bandeau} />
 
       <div className="mt-[100px] lg:mt-[200px] flex justify-center mb-6 lg:mb-0">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1400px] w-full px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1400px] w-full px-4">
           {youtubers.youtubersList.map((youtuber: Youtuber, idx) => (
 						<div
-							key={youtuber.name}
-							className={`flex flex-col items-start ${
-								idx === 4 ? "row-span-2" : ""
-							}`}
+							key={`${youtuber.name}-${idx}`}
+							className="flex flex-col items-start"
 						>
 							<Link
 								href={youtuber.videoUrl}
 								target="_blank"
 								rel="noopener noreferrer"
-								className={`block mt-2 w-full ${idx === 4 ? "h-full" : ""}`}
+								className="block mt-2 w-full"
 							>
-								<div className={`overflow-hidden rounded-2xl w-full max-w-[450px] ${
-									idx === 4 ? "h-[calc(100%-100px)]" : ""
-								}`}>
+								<div className="overflow-hidden rounded-2xl w-full h-[280px]">
 									<Image
 										src={youtuber.image}
 										alt={youtuber.name}
 										width={450}
 										height={280}
-										className={`object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full ${
-											idx === 4 ? "h-full" : "h-auto min-h-[280px]"
-										}`}
+										className="object-cover hover:scale-110 transition-all duration-300 ease-in-out w-full h-full"
 									/>
 								</div>
 								<div className="flex gap-2.5 mt-3 pl-2.5 lg:pl-0">
